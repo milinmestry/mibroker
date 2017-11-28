@@ -1,12 +1,30 @@
+//- mixin for menu links
+mixin showMenuLinks(links)
+  ul(class="list")
+    each link in links
+      li(class="dib link pv2 ttu ph3")
+        a(href=link.slug class="white link hover-orange" title=link.title) #{link.lable}
+    else
+      li No menu link.
+
+
+
 div(class="mw9 center ph3-ns bg-near-black")
   div(class="cf ph2-ns")
     div(class="fl w-50 w-third-ns pa2")
-      a(class="link hover-bg-orange white pa2" href="https://www.facebook.com/InternetBrokerCOM" target="_BLANK") Facebook
+      a(class="link hover-orange white pa2" href="https://www.facebook.com/InternetBrokerCOM" target="_BLANK") Facebook
 
     div(class="fl w-50 w-two-thirds-ns pa2 tr")
-      a(class="link hover-bg-orange white pa2 ph3" href="login") Login
-      a(class="link hover-bg-orange white pa2 ph3" href="register") Register
+      a(class="link hover-orange white pa2 ph3" href="login") Login
+      a(class="link hover-orange white pa2 ph3" href="register") Register
+  
+  div(class="cf ph2-ns ba b--silver")
+    div(class="fl w-15 pa2 ba b--silver")
+      a(class="link" href="/" target="_BLANK")
+        img(src="/images/logo.png")
+
+    div(class="fl w-80 tr")
+      +showMenuLinks(menuLinks)
     
   //- div(class="fl w-third pa2")
   //- div(class="fl w-two-thirds pa2")
-  //- 
