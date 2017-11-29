@@ -1,3 +1,5 @@
+include ./mixins/mixins.pug
+
 doctype html
 html(lang='en')
   head
@@ -6,10 +8,13 @@ html(lang='en')
     meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel='stylesheet', href='/stylesheets/tachyons.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
-  body(class="bg-washed-yellow _debug")
-    section(class='fl w-100')
-      include top-header1
-      block main-container
-        block content
-    footer(class="bg-near-black light-gray fl w-100 pa2")
-      include footer1
+  body(class="bg-washed-yellow __debug")
+    main(class='fl w-100')
+      //- include top-header1
+      header(class="sans-serif")
+        block header
+      
+      block content
+      
+      footer(class="bg-mid-gray light-gray fl w-100 pa2")
+        include footer1

@@ -1,8 +1,14 @@
 extends layout1
 
-block content
-  h1= title
-  p Welcome to #{title}
+block header
+  +showHeader(menuLinks, activeMenu,
+    'Buy & Sell Domains Securely',
+    'Find The Best Domain Name For You or Your Business'
+  )
 
+block content
+  //- h1= title
+  //- p Welcome to #{title}
+    
 block footer-container
   h3= "i am in footer"
