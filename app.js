@@ -43,4 +43,14 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+/**
+ * Application level static variables
+ */
+app.locals.__sitename = 'MiBSite.com';
+app.locals.__title = 'MiB Express-Tachyons';
+app.locals.__description = 'A boilerplate for a simple web application with a \
+  Node.JS and Express backend, with an Pug template with using Tachyons.';
+app.locals.__authorName = 'Mestry Milin';
+app.locals.__authorEmail = 'milinmestry@gmail.com';
+
 module.exports = app;

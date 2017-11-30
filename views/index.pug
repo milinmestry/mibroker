@@ -7,8 +7,28 @@ block header
   )
 
 block content
-  //- h1= title
-  //- p Welcome to #{title}
-    
+  section(class="bg-dark-gray fl w-100 pa4 avenir")
+    div(class="fl w-50 pa3 tc")
+      p(class="f1 tr")
+        span(class="white") List your domain on our 
+        span(class="orange fw9") premium domain 
+        span(class="white") marketplace
+    div(class="fl w-50 pa3")
+      p(class="f4 lr")
+        span(class="orange") #{__sitename} is the Premier Web Domain Broker. 
+        span(class="white f5") Search thousands of premium domain names to find the right domain to represent you or your company.
+        br 
+        a(href="search/advanced" class="f5 link hover-gold orange") Start Your Search
+      
+      p(class="f4 lr")
+        span(class="orange") List your Domain Names For Sale For FREE&excl; 
+        span(class="white f5") Our Premium Services to you guarantee secure transfer and payment of domain names, so you and the buyer are secure.
+        br 
+        a(href="register" class="f5 link hover-gold orange") Create Free Account
+  
+  section(class="w-100 pa4" style="background-image: url(images/stat-bg-min.jpg)")
+    div(class="tc")
+      h2(class="f3 white") DomainStats
+        
 block footer-container
   h3= "i am in footer"
