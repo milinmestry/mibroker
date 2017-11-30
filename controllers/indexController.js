@@ -9,7 +9,6 @@ exports.home = function (req, res, next) {
     { id: 4, lable: 'Hire a Broker', slug: 'contact-us' },
     { id: 5, lable: 'About Us', slug: 'about-us' },
   ];
-
   res.render('index', { title: 'MiB Home', menuLinks: listMenus, activeMenu: '/' });
 };
 
@@ -22,5 +21,11 @@ exports.buy_domains = function (req, res, next) {
     { id: 4, lable: 'Hire a Broker', slug: 'contact-us' },
     { id: 5, lable: 'About Us', slug: 'about-us' },
   ];
-  res.render('index', { title: 'MiB Buy Domains', menuLinks: listMenus, activeMenu: 'buy-domains' });
+  res.render('buy-domains', { title: 'MiB Buy Domains', menuLinks: listMenus,
+    activeMenu: 'buy-domains', });
+};
+
+// Home page
+exports.sell_domains = function (req, res, next) {
+  res.render('sell-domains', { title: 'MiB Sell Domains', menuLinks: {}, activeMenu: 'sell-domains' });
 };

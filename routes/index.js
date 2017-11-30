@@ -12,5 +12,6 @@ router.get('/', function (req, res, next) {
 
 router.get('/', indexController.home);
 router.get('/buy-domains', indexController.buy_domains);
+router.get('/sell-domains', indexController.sell_domains);
 
 module.exports = router;

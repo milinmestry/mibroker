@@ -2,9 +2,9 @@
 mixin showMenuLinks(links, active)
   - var defaultClasses = 'link hover-orange';
 
-  ul(class="list")
+  ul(class="list pt3-l")
     each link in links
-      li(class="dib link pv2 ttu ph3")
+      li(class="dib-l link pv2-l pv1-l ttu ph3-l ph1")
         if active == link.slug
           - var aClass = 'orange ' + defaultClasses
         else
@@ -14,21 +14,26 @@ mixin showMenuLinks(links, active)
       li No menu link.
 
 mixin showBanner(title, subTitle)
-  div(class="pt4 pb5 pb6-m pb7-l")
-    div(class="tc-l ph3")
+  div(class="pt4 pb6 mt5")
+    div(class="tc tc-l pt0")
       if title
-        h1(class="f2 f1-l fw7 white mb0 mt0 lh-title")= title
-      h2(class="fw1 f3 white-80 mt3 mb4")= subTitle
+        h1(class="f2 f1-l fw9 white mb0 mt0 lh-title")= title
+      h2(class="fw1 f3-l white")= subTitle
       form(method="get" action="/search")
-        input(type="text" placeholder="What are you looking for?")
-        input(type="submit" value="Search Now")
+        input(type="text" placeholder="What are you looking for?" 
+          class="f6 f4-l input-reset bn black-80 bg-white pa3 lh-solid br2-ns contain bg-left bg-right-l" 
+          size="50" style="background-image: url(images/icons/search.png)")
+        input(type="submit" value="Search Now" class="ml2-l bg-orange white b f4 link br2 bn ph4-l pv3-l pv2 mb2 dib mt2 pointer")
+        p
+          a(href="search/advanced" class="link hover-gold orange") Advanced Search
               
 mixin showHeader(links, active, title, subTitle)
   div(class="cover bg-left bg-center-l"
     style="background-image: url(images/revolution-slider1-min.jpg)")
       div(class="cf ph2-ns")
         div(class="fl w-50 w-third-ns pa2")
-          a(class="link hover-orange white pa2" href="https://www.facebook.com/InternetBrokerCOM" target="_BLANK") Facebook
+          a(class="link hover-orange white pa2" href="https://www.facebook.com/InternetBrokerCOM"
+            target="_BLANK") Facebook
 
         div(class="fl w-50 w-two-thirds-ns pa2 tr")
           a(class="link hover-orange white pa2 ph3" href="login") Login
@@ -36,9 +41,9 @@ mixin showHeader(links, active, title, subTitle)
       
       div(class="cf ph2-ns bb bt b--silver")
         div(class="fl w-15 pa2 br b--silver")
-          a(class="link" href="/" target="_BLANK")
-            img(src="/images/logo.png")
+          a(class="link" href="/")
+            img(src="/images/logo.png" class="w-75 w-100-l")
 
-        div(class="fl w-80 ml5 tr")
+        div(class="fl-l w-80 ml5 tr f7")
           +showMenuLinks(links, active)
       +showBanner(title, subTitle)
