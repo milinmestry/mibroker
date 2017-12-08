@@ -5,10 +5,21 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+// const sequelize = require('./common/dbconnection'); // Database
 var index = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+
+const Models = require('./models/');
+
+Models.sequelize.sync()
+  .then(() => {
+    console.log('LOG::DB Database models are sync.');
+  })
+  .catch(() => {
+    console.log('LOG::DB Database models sync failed.');
+  });
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
