@@ -63,7 +63,7 @@ module.exports = (sequelize, DataTypes) => {
   },
   {
     timestamps: true,
-    paranoid: true,
+    paranoid: false,
     underscored: true,
 
     // I want updatedAt to actually be called another name
