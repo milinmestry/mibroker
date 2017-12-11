@@ -10,6 +10,8 @@ const menulinkRepository = {
         is_active: 1,
         menu_position: 'TOP',
       },
+    }).then(function (links) {
+      return links;
     });
   },
 };

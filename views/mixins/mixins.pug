@@ -47,3 +47,9 @@ mixin showHeader(links, active, title, subTitle)
         div(class="fl-l w-80 ml5 tr f7")
           +showMenuLinks(links, active)
       +showBanner(title, subTitle)
+      
+mixin showFooterCategories(categories)
+  ul(class="list")
+    each category in categories
+      li(class="pa1")
+        a(href='category/'+category.id class="link silver hover-orange" title=category.title) #{category.name}

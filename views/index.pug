@@ -111,5 +111,28 @@ block content
                 | The value in .com domain names are quite evident year after year. 
                 | Domain Names are an investment for life for you or your business.
 
+  div(class="cf")
+  section(class="")
+    div(class="tc pa3")
+      div(class="pt4 mb2")
+        span(class="f2 b") Categories
+      div(class="center w-10 bt b--black-50 pb0")
+        div(class="mt1 center w-50 bt b--black-50")
+          
+      div(class="mw9 center ph3-ns")
+        div(class="cf ph2-ns tl")
+          div(class="fl w-100 w-20-ns pa2")
+            +showFooterCategories(categoriesList.slice(0, 9))
+          div(class="fl w-100 w-20-ns pa2")
+            +showFooterCategories(categoriesList.slice(10, 19))
+          div(class="fl w-100 w-20-ns pa2")
+            +showFooterCategories(categoriesList.slice(20, 29))
+          div(class="fl w-100 w-20-ns pa2")
+            +showFooterCategories(categoriesList.slice(30, 39))
+          div(class="fl w-100 w-20-ns pa2")
+            +showFooterCategories(categoriesList.slice(40, 49))
+          
+        
+    
 block footer-container
   h3= "i am in footer"

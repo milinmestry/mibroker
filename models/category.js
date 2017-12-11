@@ -54,7 +54,7 @@ module.exports = (sequelize, DataTypes) => {
   },
   {
     timestamps: true,
-    paranoid: true,
+    paranoid: false,
     underscored: true,
 
     // I want to rename to be called with another name
