@@ -20,9 +20,17 @@ exports.home = function (req, res, next) {
     .then(function (allPromises) {
       // console.log(allPromises[0]);
       // console.log(allPromises[1]);
+      domainsSL = [
+        { id: 1, name: 'short-1' }, { id: 2, name: 'short-2' },
+        { id: 3, name: 'short-3' }, { id: 4, name: 'short-4' },
+        { id: 5, name: 'short-5' }, { id: 6, name: 'short-6' },
+        { id: 7, name: 'short-7' }, { id: 8, name: 'short-8' },
+        { id: 9, name: 'short-9' }, { id: 10, name: 'short-10' },
+        { id: 11, name: 'short-11' }, { id: 12, name: 'short-12' },
+      ];
       res.render('index', {
         title: 'MiB Home', menuLinks: allPromises[0], activeMenu: '/',
-        categoriesList: allPromises[1],
+        categoriesList: allPromises[1], categoriesShortLength: domainsSL,
       });
     })
     .catch(TypeError, function (e) {

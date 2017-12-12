@@ -49,7 +49,8 @@ mixin showHeader(links, active, title, subTitle)
       +showBanner(title, subTitle)
       
 mixin showFooterCategories(categories)
-  ul(class="list")
+  ul(class="list pa0")
     each category in categories
-      li(class="pa1")
-        a(href='category/'+category.id class="link silver hover-orange" title=category.title) #{category.name}
+      li(class="")
+        span(class="gold f3") &GreaterGreater;
+        a(href='category/'+category.id class="link black-60 hover-orange ml1" title=category.name) #{category.name}
