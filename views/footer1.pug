@@ -2,4 +2,17 @@ script(src="javascripts/external/jquery.min.js")
 
 block footer-container
 
-div(class="tr orange") poweredBy MiB
+div(class="w-100 ph2 tc")
+  +showFooterLinks(menuLinks)
+
+
+script
+  - const copyrightYear = new Date().getFullYear();
+
+div(class="w-100 pv2 bt b--white-10")
+  div(class="fl w-70")
+    span(class="silver") &copy;Copyright #{copyrightYear} MiB. All Rights Reversed.
+  div(class="fl w-30")
+    div(class="tr")
+      span(class="silver") Powered By 
+      span(class="orange") MiB
