@@ -1,18 +1,19 @@
 //- mixin for menu links
 mixin showMenuLinks(links, active)
-  - var defaultClasses = 'link hover-orange';
+  if links
+    - var defaultClasses = 'link hover-orange';
 
-  ul(class="list pt3-l")
-    each link in links
-      if link.menu_position == 'TOP'
-        li(class="dib-l link pv2-l pv1-l ttu ph3-l ph1")
-          if active == link.slug
-            - var aClass = 'orange ' + defaultClasses
-          else
-            - var aClass = 'white ' + defaultClasses
-          a(href=link.slug class=aClass title=link.title) #{link.label}
-    else
-      li No menu link.
+    ul(class="list pt3-l")
+      each link in links
+        if link.menu_position == 'TOP'
+          li(class="dib-l link pv2-l pv1-l ttu ph3-l ph1")
+            if active == link.slug
+              - var aClass = 'orange ' + defaultClasses
+            else
+              - var aClass = 'white ' + defaultClasses
+            a(href=link.slug class=aClass title=link.title) #{link.label}
+      else
+        li No menu link.
 
 mixin showBanner(title, subTitle)
   div(class="pt4 pb6 mt5")
@@ -33,8 +34,16 @@ mixin showHeader(links, active, title, subTitle)
     style="background-image: url(images/revolution-slider1-min.jpg)")
       div(class="cf ph2-ns")
         div(class="fl w-50 w-third-ns pa2")
-          a(class="link hover-orange white pa2" href="https://www.facebook.com/InternetBrokerCOM"
-            target="_BLANK") Facebook
+          a(class="link orange hover-gold" href="https://www.facebook.com/InternetBrokerCOM"
+            target="_BLANK")
+            svg(xmlns="http://www.w3.org/2000/svg" version="1.1" data-icon="Facebook" 
+              viewBox="0 0 16 16" fill-rule="evenodd" clip-rule="evenodd" 
+              stroke-linejoin="round" stroke-miterlimit="1.414" fill="currentColor"
+              width="20" height="20")
+              title Facebook
+              //- path(d="M8 12 L13 12 L13 8 C13 2 17 1 24 2 L24 7 C20 7 19 7 19 10 L19 12 L24 12 L23 18 L19 18 L19 30 L13 30 L13 18 L8 18 z")
+              path(d="M15.117 0H.883C.395 0 0 .395 0 .883v14.234c0 .488.395.883.883.883h7.663V9.804H6.46V7.39h2.086V5.607c0-2.066 1.262-3.19 3.106-3.19.883 0 1.642.064 1.863.094v2.16h-1.28c-1 0-1.195.476-1.195 1.176v1.54h2.39l-.31 2.416h-2.08V16h4.077c.488 0 .883-.395.883-.883V.883C16 .395 15.605 0 15.117 0"
+                fill-rule="nonzero")
 
         div(class="fl w-50 w-two-thirds-ns pa2 tr")
           a(class="link hover-orange white pa2 ph3" href="login") Login
@@ -57,12 +66,13 @@ mixin showFooterCategories(categories)
         a(href='category/'+category.id class="link black-60 hover-orange ml1" title=category.name) #{category.name}
 
 mixin showFooterLinks(links)
-  ul(class="list pt1-l")
-    each link in links
-      li(class="dib-l link pv2-l pv1-l ph2-l ph1")
-        a(href=link.slug class='link orange hover-gold' title=link.title) #{link.label}
-    else
-      li No footer link.
+  if links
+    ul(class="list pt1-l")
+      each link in links
+        li(class="dib-l link pv2-l pv1-l ph2-l ph1")
+          a(href=link.slug class='link orange hover-gold' title=link.title) #{link.label}
+      else
+        li No footer link.
 
-    a(class="link hover-gold orange ph2-l" href="login") Login &sol;
-    a(class="link hover-gold orange" href="register") Register
+      a(class="link hover-gold orange ph2-l" href="login") Login &sol;
+      a(class="link hover-gold orange" href="register") Register

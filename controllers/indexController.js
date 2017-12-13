@@ -43,7 +43,7 @@ exports.home = function (req, res, next) {
     });
 };
 
-// Home page
+// Buy Domains
 exports.buy_domains = function (req, res, next) {
   menulinkData.getTopMenus()
     .then(function (listMenus) {
@@ -52,11 +52,29 @@ exports.buy_domains = function (req, res, next) {
     });
 };
 
-// Home page
+// Sell Domains
 exports.sell_domains = function (req, res, next) {
   menulinkData.getTopMenus()
     .then(function (listMenus) {
       res.render('sell-domains', { title: 'MiB Sell Domains', menuLinks: listMenus,
         activeMenu: 'sell-domains', });
+    });
+};
+
+// Contact Us
+exports.contact_us = function (req, res, next) {
+  menulinkData.getTopMenus()
+    .then(function (listMenus) {
+      res.render('contact-us', { title: 'MiB Hire A Broker', menuLinks: listMenus,
+        activeMenu: 'contact-us', });
+    });
+};
+
+// About Us
+exports.about_us = function (req, res, next) {
+  menulinkData.getTopMenus()
+    .then(function (listMenus) {
+      res.render('about-us', { title: 'MiB About MiB', menuLinks: listMenus,
+        activeMenu: 'about-us', });
     });
 };
