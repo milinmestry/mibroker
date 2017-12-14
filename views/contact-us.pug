@@ -7,3 +7,21 @@ block header
   )
 
 block content
+  div(class="fl w-50 pa4 f5 ba b--black-20 ma3 shadow-4")
+    form(class="" method="post" action="contact-us/save" accept-charset="utf-8")
+        div(class="mt3")
+          div(class="fl w-third pa0")
+            label(class="db fw4 lh-copy" for="first_name") First name
+              span(class="f3 red") &ast;
+          div(class="fl w-two-thirds pa0")
+            input(class="pa2 input-reset ba b--black-20 bg-transparent w-100 measure"
+              type="input" name="first_name" id="first_name" placeholder="Your First name")
+        div(class="cf")
+        
+        div(class="mt3")
+          div(class="fl w-third pa0")
+            label(class="db fw4 lh-copy" for="last_name") Last name
+              span(class="f3 red") &ast;
+          div(class="fl w-two-thirds pa0")
+            input(class="pa2 input-reset ba b--black-20 bg-transparent w-100 measure"
+              type="input" name="last_name" id="last_name" placeholder="Your Last name")

@@ -16,7 +16,12 @@ mixin showMenuLinks(links, active)
         li No menu link.
 
 mixin showBanner(title, subTitle)
-  div(class="pt4 pb6 mt5")
+  - var aClass = 'pt4 pb6 mt5';
+  
+  if title == ''
+    - var aClass = 'pb3 mt4';
+  
+  div(class=aClass)
     div(class="tc tc-l pt0")
       if title
         h1(class="f2 f1-l fw9 white mb0 mt0 lh-title")= title
