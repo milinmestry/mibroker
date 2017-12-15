@@ -4,14 +4,31 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+const helmet = require('helmet'); // web secure
+const session = require('express-session'); // web secure
+const expressValidator = require('express-validator');
 
 // const sequelize = require('./common/dbconnection'); // Database
-var index = require('./routes/index');
-var users = require('./routes/users');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const contactUsRouter = require('./routes/contact-us');
 
+// Express app
 var app = express();
 
-const Models = require('./models/');
+app.use(helmet({
+  frameguard: { action: 'deny' }, // For iframe
+}));
+
+// https://nodewebapps.com/2017/01/03/13-security-best-practices-for-your-web-application/
+app.use(session({
+  secret: '@OmbhurBhavas$waha#tatsav!turvarenyam!',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { httpOnly: true,  secure: true },
+}));
+
+const Models = require('./models/'); // All models
 
 Models.sequelize.sync()
   .then(() => {
@@ -30,11 +47,13 @@ app.set('view engine', 'pug');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser()); // we need this because "cookie" is true in csrfProtection
+app.use(expressValidator());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
-app.use('/users', users);
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
+app.use('/contact-us', contactUsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

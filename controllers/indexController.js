@@ -61,15 +61,6 @@ exports.sell_domains = function (req, res, next) {
     });
 };
 
-// Contact Us
-exports.contact_us = function (req, res, next) {
-  menulinkData.getTopMenus()
-    .then(function (listMenus) {
-      res.render('contact-us', { title: 'MiB Hire A Broker', menuLinks: listMenus,
-        activeMenu: 'contact-us', });
-    });
-};
-
 // About Us
 exports.about_us = function (req, res, next) {
   menulinkData.getTopMenus()

@@ -1,0 +1,87 @@
+extends ../layout1
+
+block header
+  +showHeader(menuLinks, activeMenu,
+    '',
+    'Find The Best Domain Name For You or Your Business'
+  )
+
+block content
+  div(class="w-100 w-60-l pa0 f5-l f7 ba b--black-20 center mv3 shadow-4")
+    if errors
+      ul
+        for error in errors
+          li!= error.msg
+        
+    div(class="bb b--black-10 bw2")
+      h2(class="orange ph3") Contact Us
+    form(class="pa4-l pa2" method="post" action="contact-us/save" accept-charset="utf-8" autocomplete="off")
+      div(class="mt3-l")
+        div(class="fl-l w-25 pa0")
+          label(class="db fw4 lh-copy" for="first_name") First name
+            span(class="f3 red") &ast;
+        div(class="fl w-75 pa0")
+          input(class="pa2 pa1 input-reset ba b--black-20 bg-transparent w-100 measure"
+            type="text" name="first_name" id="first_name" placeholder="Your First name"
+            required)
+          input(type="hidden" name="_csrf" value=csrfToken)  
+      div(class="cf")
+
+      div(class="mt3-l")
+        div(class="fl-l w-25 pa0")
+          label(class="db fw4 lh-copy" for="last_name") Last name
+            span(class="f3 red") &ast;
+        div(class="fl w-75 pa0")
+          input(class="pa2 input-reset ba b--black-20 bg-transparent w-100 measure"
+            type="text" name="last_name" id="last_name" placeholder="Your Last name"
+            required)
+      div(class="cf")
+
+      div(class="mt3-l")
+        div(class="fl-l w-25 pa0")
+          label(class="db fw4 lh-copy" for="email") Email
+            span(class="f3 red") &ast;
+        div(class="fl w-75 pa0")
+          input(class="pa2 input-reset ba b--black-20 bg-transparent w-100 measure"
+            type="email" name="email" id="email" placeholder="Your Email address"
+            required)
+      div(class="cf")
+
+      div(class="mt3-l mt1")
+        div(class="fl-l w-25 pa0")
+          label(class="db fw4 lh-copy" for="contact_number") Contact Number
+        div(class="fl w-75 pa0")
+          input(class="pa2 input-reset ba b--black-20 bg-transparent w-100 measure"
+            type="text" name="contact_number" id="contact_number" placeholder="Your Contact number")
+      div(class="cf")
+
+      div(class="mt3-l")
+        div(class="fl-l w-25 pa0")
+          label(class="db fw4 lh-copy" for="subject") Subject
+            span(class="f3 red") &ast;
+        div(class="fl w-75 pa0")
+          input(class="pa2 input-reset ba b--black-20 bg-transparent w-100 measure"
+            type="text" name="subject" id="subject" placeholder="Mention subject of the message"
+            required)
+      div(class="cf")
+
+      div(class="mt3-l")
+        div(class="fl-l w-25 pa0")
+          label(class="db fw4 lh-copy" for="message") Message
+            span(class="f3 red") &ast;
+        div(class="fl w-75 pa0")
+          textarea(class="db border-box hover-black w-100 measure ba b--black-20 pa2 br2 mb2 bg-transparent" name="message" id="message" placeholder="Your message" aria-describedby="comment-desc"
+            required)
+      div(class="cf")
+
+      div(class="mt3-l")
+        div(class="fl-l w-25 pa0")
+          label(class="db fw4 lh-copy" for="gcaptcha") Captcha
+            span(class="f3 red") &ast;
+        div(class="fl w-75 pa0")
+          div
+      div(class="cf")
+        
+      div(class="w-100 tc")
+        input(class="f6 link hover-gold pointer ph3 pv2 br2 ba b--purple dib white bg-purple" type="submit"
+          value="Send Message")
