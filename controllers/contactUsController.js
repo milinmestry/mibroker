@@ -6,7 +6,7 @@ exports.contact_us = function (req, res, next) {
   menulinkData.getTopMenus()
     .then(function (listMenus) {
       res.render('contact-us/index', { title: 'MiB Hire A Broker', menuLinks: listMenus,
-        activeMenu: 'contact-us', csrfToken: req.csrfToken(), });
+        activeMenu: '/contact-us', csrfToken: req.csrfToken(), });
     });
 };
 
@@ -18,28 +18,30 @@ exports.save = function (req, res, next) {
   req.checkBody('email', 'Valid Email address is required.').isEmail();
   req.checkBody('subject', 'Subject name is required.').notEmpty();
   req.checkBody('message', 'Message name is required.').notEmpty();
+  req.checkBody('message', 'Message must be between 5 to 1000 characters.').isLength({ min: 5, max: 1000 });
   req.checkBody('contact_number', 'contact_number max 4 is required.').isLength({max:4});
 
-  // Run the validator
-  const errors = req.validationErrors();
   // Get the validation result whenever you want; see the Validation Result API for all options!
-  // const errors = req.getValidationResult();
-console.log(errors);
-  // If errors display the form again, passing previously entered values and errors.
-  if (errors) {
-    // res.render('contact-us/index', { title: 'MiB Hire A Broker', menuLinks: listMenus,
-    //   activeMenu: 'contact-us', csrfToken: req.csrfToken(), errors: errors, });
-    menulinkData.getTopMenus()
-      .then(function (listMenus) {
-        res.render('contact-us/index', { title: 'MiB Hire A Broker', menuLinks: listMenus,
-          activeMenu: 'contact-us', csrfToken: req.csrfToken(), errors: errors, });
-      });
+  // https://stackoverflow.com/questions/43828231/issues-with-error-messages-while-validating-the-form-field-in-express-js
+  req.getValidationResult()
+    .then(function (error) {
+      // If errors display the form again, passing previously entered values and errors.
+      if (!error.isEmpty()) {
+        menulinkData.getTopMenus()
+          .then(function (listMenus) {
+            res.render('contact-us/index', { title: 'MiB Hire A Broker', menuLinks: listMenus,
+              activeMenu: '/contact-us', csrfToken: req.csrfToken(), errors: error.array(), });
+          });
 
-    return;
-  } else {
-    res.redirect('thank-you');
-  }
-
+        return;
+      } else {
+        // Redirect to new thank_you page.
+        res.redirect('thank-you');
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 };
 
 exports.thank_you = function (req, res, next) {

@@ -8,14 +8,12 @@ block header
 
 block content
   div(class="w-100 w-60-l pa0 f5-l f7 ba b--black-20 center mv3 shadow-4")
-    if errors
-      ul
-        for error in errors
-          li!= error.msg
-        
     div(class="bb b--black-10 bw2")
       h2(class="orange ph3") Contact Us
-    form(class="pa4-l pa2" method="post" action="contact-us/save" accept-charset="utf-8" autocomplete="off")
+    
+    +showErrors(errors)
+    
+    form(class="pa4-l pa2 pt0-l" method="post" action="/contact-us/save" accept-charset="utf-8" autocomplete="off")
       div(class="mt3-l")
         div(class="fl-l w-25 pa0")
           label(class="db fw4 lh-copy" for="first_name") First name
