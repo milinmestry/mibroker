@@ -21,7 +21,7 @@ block content
         div(class="fl w-75 pa0")
           input(class="pa2 pa1 input-reset ba b--black-20 bg-transparent w-100 measure"
             type="text" name="first_name" id="first_name" placeholder="Your First name"
-            required)
+            value=(undefined === contactUsData ? '' : contactUsData.first_name) required="true")
           input(type="hidden" name="_csrf" value=csrfToken)  
       div(class="cf")
 
@@ -32,7 +32,7 @@ block content
         div(class="fl w-75 pa0")
           input(class="pa2 input-reset ba b--black-20 bg-transparent w-100 measure"
             type="text" name="last_name" id="last_name" placeholder="Your Last name"
-            required)
+            value=(undefined === contactUsData ? '' : contactUsData.last_name) required="true")
       div(class="cf")
 
       div(class="mt3-l")
@@ -42,7 +42,7 @@ block content
         div(class="fl w-75 pa0")
           input(class="pa2 input-reset ba b--black-20 bg-transparent w-100 measure"
             type="email" name="email" id="email" placeholder="Your Email address"
-            required)
+            value=(undefined === contactUsData ? '' : contactUsData.email) required="true")
       div(class="cf")
 
       div(class="mt3-l mt1")
@@ -50,7 +50,8 @@ block content
           label(class="db fw4 lh-copy" for="contact_number") Contact Number
         div(class="fl w-75 pa0")
           input(class="pa2 input-reset ba b--black-20 bg-transparent w-100 measure"
-            type="text" name="contact_number" id="contact_number" placeholder="Your Contact number")
+            type="text" name="contact_number" id="contact_number" placeholder="Your Contact number"
+            value=(undefined === contactUsData ? '' : contactUsData.contact_number))
       div(class="cf")
 
       div(class="mt3-l")
@@ -60,7 +61,7 @@ block content
         div(class="fl w-75 pa0")
           input(class="pa2 input-reset ba b--black-20 bg-transparent w-100 measure"
             type="text" name="subject" id="subject" placeholder="Mention subject of the message"
-            required)
+            value=(undefined === contactUsData ? '' : contactUsData.subject) required="true")
       div(class="cf")
 
       div(class="mt3-l")
@@ -69,7 +70,7 @@ block content
             span(class="f3 red") &ast;
         div(class="fl w-75 pa0")
           textarea(class="db border-box hover-black w-100 measure ba b--black-20 pa2 br2 mb2 bg-transparent" name="message" id="message" placeholder="Your message" aria-describedby="comment-desc"
-            required)
+          required="true") #{undefined === contactUsData ? '' : contactUsData.message}
       div(class="cf")
 
       div(class="mt3-l")

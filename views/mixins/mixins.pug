@@ -86,6 +86,6 @@ mixin showErrors(errors)
   if errors
     article(class="pa1 pa1-ns")
       ul(class="red list pl0 ml0 center mw6 bb-0 ba b--light-red br2")
-        li(class="ph3 pv2 bg-light-red bb f4 b--light-red bw1 black") Errors
+        li(class="ph3 pv2 bg-light-red bb f4 b--light-red bw1 white") Errors
         for error in errors
           li(class="ph3 pv1 bb b--light-red")!= error.msg
