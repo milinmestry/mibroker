@@ -1,0 +1,132 @@
+extends ../layout1
+
+block header
+  +showHeader(menuLinks, activeMenu,
+    '',
+    'Find The Best Domain Name For You or Your Business'
+  )
+
+block content
+  div(class="w-100 w-90-l pa0 f5-l f7 ba b--black-20 center mv3 shadow-4")
+    div(class="bb b--black-10 bw2")
+      h2(class="orange ph3") New User Registration
+
+    +showErrors(errors)
+
+    form(class="pa3-l pa2 pt0-l" method="post" action="/users/save"
+      accept-charset="utf-8" autocomplete="off")
+      div(class="cf ph2-ns mt3")
+        div(class="fl w-100 w-50-ns pv2-ns")
+          div(class="fl-l w-25-l pa0")
+            label(class="db fw4 lh-copy" for="first_name") First name
+              span(class="f3 red") &ast;
+          div(class="fl w-75 w-60-l pa0")
+            input(class="pa2 pa1 input-reset ba b--black-20 bg-transparent w-100 measure"
+              type="text" name="first_name" id="first_name" placeholder="Your First name"
+              value=(undefined === registerData ? '' : registerData.first_name) required="true")
+            input(type="hidden" name="_csrf" value=csrfToken)
+        
+        div(class="fl w-100 w-50-ns pv2-ns pt2")
+          div(class="fl-l w-30-l pa0")
+            label(class="db fw4 lh-copy" for="last_name") Last name
+              span(class="f3 red") &ast;
+          div(class="fl w-75 w-60-l pa0")
+            input(class="pa2 input-reset ba b--black-20 bg-transparent w-100 measure"
+              type="text" name="last_name" id="last_name" placeholder="Your Last name"
+              value=(undefined === registerData ? '' : registerData.last_name) required="true")
+      
+      div(class="cf ph2-ns mt1")
+        div(class="fl w-100 w-50-ns pv2-ns")
+          div(class="fl-l w-25-l pa0")
+            label(class="db fw4 lh-copy" for="email") Email
+              span(class="f3 red") &ast;
+          div(class="fl w-75 w-60-l pa0")
+            input(class="pa2 pa1 input-reset ba b--black-20 bg-transparent w-100 measure"
+              type="email" name="email" id="email" placeholder="Your Email address"
+              value=(undefined === registerData ? '' : registerData.email) required="true")
+        
+        div(class="fl w-100 w-50-ns pv2-ns pt3")
+          div(class="fl-l w-30-l pa0")
+            label(class="db fw4 lh-copy" for="contact_number") Contact Number
+          div(class="fl w-75 w-60-l pa0")
+            input(class="pa2 input-reset ba b--black-20 bg-transparent w-100 measure"
+              type="text" name="contact_number" id="contact_number" 
+              placeholder="Your Last name" maxlength="35"
+              value=(undefined === registerData ? '' : registerData.contact_number))
+      
+      div(class="cf ph2-ns mt1")
+        div(class="fl w-100 w-50-ns pv2-ns")
+          div(class="fl-l w-25-l pa0")
+            label(class="db fw4 lh-copy" for="password") Password
+              span(class="f3 red") &ast;
+          div(class="fl w-75 w-60-l pa0")
+            input(class="pa2 pa1 input-reset ba b--black-20 bg-transparent w-100 measure"
+              type="password" name="password" id="password" placeholder="Your password"
+              minlength="8" maxlength="20" required="true")
+        div(class="fl w-100 w-50-ns pv2-ns pt3")
+          div(class="fl-l w-30-l pa0")
+            label(class="db fw4 lh-copy" for="password_repeat") Repeat Password
+              span(class="f3 red") &ast;
+          div(class="fl w-75 w-60-l pa0")
+            input(class="pa2 pa1 input-reset ba b--black-20 bg-transparent w-100 measure"
+              type="password" name="password_repeat" id="password_repeat" 
+              placeholder="Repeat your password" minlength="8" maxlength="20" required="true")
+
+      div(class="cf ph2-ns mt1")
+        div(class="fl w-100 w-50-ns pv2-ns")
+          div(class="fl-l w-25-l pa0")
+            label(class="db fw4 lh-copy" for="address") Address
+              span(class="f3 red") &ast;
+          div(class="fl w-75 w-60-l pa0")
+            input(class="pa2 pa1 input-reset ba b--black-20 bg-transparent w-100 measure"
+              type="text" name="address" id="address" placeholder="Your address"
+              minlength="4" maxlength="150" required="true")
+        div(class="fl w-100 w-50-ns pv2-ns pt3")
+          div(class="fl-l w-30-l pa0")
+            label(class="db fw4 lh-copy" for="zipcode") Zipcode
+              span(class="f3 red") &ast;
+          div(class="fl w-75 w-60-l pa0")
+            input(class="pa2 pa1 input-reset ba b--black-20 bg-transparent w-100 measure"
+              type="text" name="zipcode" id="zipcode" 
+              placeholder="Your zipcode" minlength="5" maxlength="8" required="true")
+      
+      div(class="cf ph2-ns mt1")
+        div(class="fl w-100 w-50-ns pv2-ns")
+          div(class="fl-l w-25-l pa0")
+            label(class="db fw4 lh-copy" for="country") Country
+              span(class="f3 red") &ast;
+          div(class="fl w-75 w-60-l pa0")
+            input(class="pa2 pa1 input-reset ba b--black-20 bg-transparent w-100 measure"
+              type="text" list="countries" name="country" id="country" required="true"
+              value=(undefined === registerData ? 'United States' : registerData.country))
+            datalist(id="countries")
+        div(class="fl w-100 w-50-ns pv2-ns pt3")
+          div(class="fl-l w-30-l pa0")
+            label(class="db fw4 lh-copy" for="zipcode") You hear about us
+          div(class="fl w-75 w-60-l pa0")
+            input(class="pa2 pa1 input-reset ba b--black-20 bg-transparent w-100 measure"
+              type="text" name="zipcode" id="zipcode" 
+              placeholder="From where you hear about us" maxlength="20")
+      
+      div(class="mt3-l")
+        div(class="fl-l w-25 pa0")
+          label(class="db fw4 lh-copy" for="gcaptcha") Captcha
+            span(class="f3 red") &ast;
+        div(class="fl w-75 pa0")
+          div
+      div(class="cf")
+
+      div(class="w-100 tc")
+        input(class="f6 link hover-gold pointer ph3 pv2 br2 ba b--purple dib white bg-purple" type="submit"
+          value="Register")
+
+block prepend footer-container
+  script(src="javascripts/json/countries.json")
+  script.
+    let countriesMaster = JSON.parse(allCountriesList);
+    const countriesCount = countriesMaster.length;
+    let dataOptions = '';
+    for (let i = 0; i < countriesCount; i++) {
+      dataOptions += '<option value="' + countriesMaster[i].name + '">';
+    }
+    document.getElementById('countries').innerHTML = dataOptions;

@@ -1,9 +1,17 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const csrf = require('csurf'); // web secure
+const bodyParser = require('body-parser');
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+// setup route middlewares
+const csrfProtection = csrf({ cookie: true });
+const parseForm = bodyParser.urlencoded({ extended: false });
+
+const router = express.Router();
+
+// Require controller modules
+const userController = require('../controllers/userController');
+
+// router.get('/', userController.index);
+router.post('/save', parseForm, csrfProtection, userController.save);
 
 module.exports = router;
