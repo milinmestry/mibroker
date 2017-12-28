@@ -51,8 +51,8 @@ mixin showHeader(links, active, title, subTitle)
                 fill-rule="nonzero")
 
         div(class="fl w-50 w-two-thirds-ns pa2 tr")
-          a(class="link hover-orange white pa2 ph3" href="login") Login
-          a(class="link hover-orange white pa2 ph3" href="register") Register
+          a(class="link hover-orange white pa2 ph3" href="/login") Login
+          a(class="link hover-orange white pa2 ph3" href="/register") Register
       
       div(class="cf ph2-ns bb bt b--silver")
         div(class="fl w-15 pa2 br b--silver")
@@ -79,8 +79,8 @@ mixin showFooterLinks(links)
       else
         li No footer link.
 
-      a(class="link hover-gold orange ph2-l" href="login") Login &sol;
-      a(class="link hover-gold orange" href="register") Register
+      a(class="link hover-gold orange ph2-l" href="/login") Login &sol;
+      a(class="link hover-gold orange" href="/register") Register
 
 mixin showErrors(errors)
   if errors

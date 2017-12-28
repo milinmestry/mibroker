@@ -80,6 +80,7 @@ block content
           div(class="fl w-75 w-60-l pa0")
             input(class="pa2 pa1 input-reset ba b--black-20 bg-transparent w-100 measure"
               type="text" name="address" id="address" placeholder="Your address"
+              value=(undefined === registerData ? '' : registerData.address)
               minlength="4" maxlength="150" required="true")
         div(class="fl w-100 w-50-ns pv2-ns pt3")
           div(class="fl-l w-30-l pa0")
@@ -87,7 +88,8 @@ block content
               span(class="f3 red") &ast;
           div(class="fl w-75 w-60-l pa0")
             input(class="pa2 pa1 input-reset ba b--black-20 bg-transparent w-100 measure"
-              type="text" name="zipcode" id="zipcode" 
+              type="text" name="zipcode" id="zipcode"
+              value=(undefined === registerData ? '' : registerData.zipcode)
               placeholder="Your zipcode" minlength="5" maxlength="8" required="true")
       
       div(class="cf ph2-ns mt1")
@@ -102,10 +104,11 @@ block content
             datalist(id="countries")
         div(class="fl w-100 w-50-ns pv2-ns pt3")
           div(class="fl-l w-30-l pa0")
-            label(class="db fw4 lh-copy" for="zipcode") You hear about us
+            label(class="db fw4 lh-copy" for="source_to_us") You hear about us
           div(class="fl w-75 w-60-l pa0")
             input(class="pa2 pa1 input-reset ba b--black-20 bg-transparent w-100 measure"
-              type="text" name="zipcode" id="zipcode" 
+              type="text" name="source_to_us" id="source_to_us"
+              value=(undefined === registerData ? '' : registerData.source_to_us)
               placeholder="From where you hear about us" maxlength="20")
       
       div(class="mt3-l")

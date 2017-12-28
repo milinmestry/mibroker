@@ -9,8 +9,8 @@ exports.register = function (req, res, next) {
 };
 
 exports.save = function (req, res, next) {
-  console.log('#12 pass=' + req.body.password);
-  console.log('#13 Rpass=' + req.body.password_repeat);
+  // console.log('#12 pass=' + req.body.password);
+  // console.log('#13 Rpass=' + req.body.password_repeat);
 
   // Validate fields
   req.checkBody('first_name', 'First name is required.').notEmpty();
@@ -22,12 +22,10 @@ exports.save = function (req, res, next) {
   req.checkBody('email', 'Email address is required.').notEmpty();
   req.checkBody('email', 'Valid Email address is required.').isEmail();
   req.checkBody('password', 'Password is required.').notEmpty();
-  req.checkBody('password_repeat', 'Repeat password is required.')
-    .exists()
-    .custom((value, { req }) => value === req.body.password);
-  req.checkBody('address', 'Message name is required.').notEmpty();
-  req.checkBody('zipcode', 'Provide valid zipcode.')
-    .isPostalCode();
+  req.checkBody('password_repeat', 'Repeat password is required.').notEmpty();
+  req.checkBody('password_repeat', 'Repeat password do not match.').equals(req.body.password);
+  req.checkBody('address', 'Address is required.').notEmpty();
+  req.checkBody('zipcode', 'Provide valid zipcode.').isPostalCode('any');
 
   let registerUser = {
     first_name: req.body.first_name,
@@ -37,6 +35,7 @@ exports.save = function (req, res, next) {
     address: req.body.address,
     zipcode: req.body.zipcode,
     country: req.body.country,
+    source_to_us: req.body.source_to_us,
   };
 
   req.getValidationResult()
@@ -53,7 +52,7 @@ exports.save = function (req, res, next) {
         return;
       } else {
         // Redirect to new thank_you page.
-        res.redirect('login');
+        res.redirect('/login');
       }
     })
     .catch(function (error) {
