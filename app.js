@@ -7,6 +7,10 @@ var bodyParser = require('body-parser');
 const helmet = require('helmet'); // web secure
 const session = require('express-session'); // web secure
 const expressValidator = require('express-validator');
+const passport = require('passport');
+const flash = require('connect-flash');
+// Middlewares
+// const middlewareUser = require('./middlewares/user.js');
 
 // const sequelize = require('./common/dbconnection'); // Database
 const indexRouter = require('./routes/index');
@@ -28,6 +32,11 @@ app.use(session({
   cookie: { httpOnly: true,  secure: true },
 }));
 
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for showing messages stored in session
+// app.use(middlewareUser); // User authenticate middleware
+
 const Models = require('./models/'); // All models
 
 Models.sequelize.sync()
@@ -35,7 +44,7 @@ Models.sequelize.sync()
     console.log('LOG::DB Database models are sync.');
   })
   .catch(() => {
-    console.log('LOG::DB Database models sync failed.');
+    console.error('LOG::DB Database models sync failed.');
   });
 
 // view engine setup

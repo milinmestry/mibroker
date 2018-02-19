@@ -3,11 +3,20 @@ const menulinkData = require('../db/data/menulinkRepository');
 exports.register = function (req, res, next) {
   menulinkData.getTopMenus()
     .then(function (listMenus) {
-      res.render('user/register', { title: 'Register yourself with us', menuLinks: listMenus,
-        activeMenu: 'register', csrfToken: req.csrfToken(), });
+      res.render('user/register', { 
+        title: 'Register yourself with us', menuLinks: listMenus,
+        activeMenu: 'register', csrfToken: req.csrfToken(),
+        message: req.flash('signupMessage') });
     });
 };
 
+/**
+ * Save register/signup form
+ *  
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 exports.save = function (req, res, next) {
   // console.log('#12 pass=' + req.body.password);
   // console.log('#13 Rpass=' + req.body.password_repeat);
@@ -60,11 +69,21 @@ exports.save = function (req, res, next) {
     });
 };
 
+// Render the login page and flash any message if exists
 exports.login = function (req, res, next) {
-  res.render('buy-domains', { title: 'Please login', activeMenu: 'login', });
+  res.render('user/login', { message: req.flash('loginMessage') });
+  // res.render('buy-domains', { title: 'Please login', activeMenu: 'login', });
 };
 
 exports.logout = function (req, res, next) {
-  res.render('buy-domains', { title: 'logout', activeMenu: 'login', });
+  req.logout();
+  res.redirect('/');
+  // res.render('buy-domains', { title: 'logout', activeMenu: 'login', });
 };
 
+// Render the user profile page and flash any message if exists
+exports.profile = function (req, res, next) {
+  res.render('user/profile', { message: req.flash('profileMessage'),
+    user: req.user, // Get the user from the session
+  });
+};

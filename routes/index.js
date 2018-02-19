@@ -1,10 +1,12 @@
 const express = require('express');
 const csrf = require('csurf'); // web secure
 const bodyParser = require('body-parser');
+// const middlewareUser = require('../middlewares/user.js');
 
 // setup route middlewares
 const csrfProtection = csrf({ cookie: true });
 const parseForm = bodyParser.urlencoded({ extended: false });
+// const isLoggedIn = middlewareUser();
 
 const router = express.Router();
 
@@ -25,6 +27,6 @@ router.get('/about-us', indexController.about_us);
 
 router.get('/register', csrfProtection, userController.register);
 router.get('/login', userController.login);
-router.get('/logout', userController.login);
+router.get('/logout', userController.logout);
 
 module.exports = router;
