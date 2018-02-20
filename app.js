@@ -19,14 +19,6 @@ app.use(helmet({
 
 // const sequelize = require('./common/dbconnection'); // Database
 
-/**
- * define routes
- */
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-const contactUsRouter = require('./routes/contact-us');
-
-
 // https://nodewebapps.com/2017/01/03/13-security-best-practices-for-your-web-application/
 
 /**
@@ -73,6 +65,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser()); // we need this because "cookie" is true in csrfProtection
 app.use(expressValidator());
 app.use(express.static(path.join(__dirname, 'public')));
+
+/**
+ * define routes
+ */
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const contactUsRouter = require('./routes/contact-us');
+const authRoutes = require('./routes/auth')(app, passport);
 
 // Use the Routes
 app.use('/', indexRouter);
