@@ -9,13 +9,6 @@ const session = require('express-session'); // web secure
 const expressValidator = require('express-validator');
 const passport = require('passport');
 const flash = require('connect-flash');
-// Middlewares
-// const middlewareUser = require('./middlewares/user.js');
-
-// const sequelize = require('./common/dbconnection'); // Database
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-const contactUsRouter = require('./routes/contact-us');
 
 // Express app
 var app = express();
@@ -24,7 +17,21 @@ app.use(helmet({
   frameguard: { action: 'deny' }, // For iframe
 }));
 
+// const sequelize = require('./common/dbconnection'); // Database
+
+/**
+ * define routes
+ */
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const contactUsRouter = require('./routes/contact-us');
+
+
 // https://nodewebapps.com/2017/01/03/13-security-best-practices-for-your-web-application/
+
+/**
+ * passport
+ */
 app.use(session({
   secret: '@OmbhurBhavas$waha#tatsav!turvarenyam!',
   resave: false,
@@ -35,10 +42,14 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for showing messages stored in session
-// app.use(middlewareUser); // User authenticate middleware
 
+/**
+ * Models
+ */
 const Models = require('./models/'); // All models
 
+
+// Synchronize database
 Models.sequelize.sync()
   .then(() => {
     console.log('LOG::DB Database models are sync.');
@@ -47,12 +58,15 @@ Models.sequelize.sync()
     console.error('LOG::DB Database models sync failed.');
   });
 
-// view engine setup
+/**
+ * view engine setup
+ */
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -60,9 +74,14 @@ app.use(cookieParser()); // we need this because "cookie" is true in csrfProtect
 app.use(expressValidator());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Use the Routes
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/contact-us', contactUsRouter);
+
+// load passport strategies
+require('./config/passport.js')(passport, Models.user);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -81,6 +100,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 
 /**
  * Application level static variables
