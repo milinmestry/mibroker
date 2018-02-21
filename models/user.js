@@ -73,7 +73,6 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true,
       validate: {
         notEmpty: true,
-        notNull: true,
       },
 
       set(passcode) {
@@ -89,7 +88,6 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true,
       validate: {
         notEmpty: true,
-        notNull: true,
         is: ['^[a-z0-9\-\.,\s]+$', 'i'],
         len: [1, 255],
       },
@@ -107,7 +105,6 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true,
       validate: {
         notEmpty: true,
-        notNull: true,
         isAlphanumeric: true,
         len: [3, 20],
       },
@@ -125,7 +122,6 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true,
       validate: {
         notEmpty: true,
-        notNull: true,
         len: [1, 30],
       },
 
@@ -143,7 +139,6 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 'inactive',
       validate: {
         notEmpty: true,
-        notNull: true,
         isIn: [['active', 'inactive', 'registered', 'suspended']],
       },
 

@@ -49,10 +49,7 @@ exports.processRegister = function (req, res, next) {
     zipcode: req.body.zipcode,
     country: req.body.country,
     source_to_us: req.body.source_to_us,
-    activation_key: 'randommstrignrequired',
-    user_status: 'registered'
   };
-console.log(registerUser);
 
   req.getValidationResult()
     .then(function (error) {
@@ -67,14 +64,22 @@ console.log(registerUser);
 
         return;
       } else {
-        UserModel.create(registerUser)
+        console.log(registerUser);
+        // const userInstance = UserModel.build(registerUser);
+        const userInstance = UserModel.build(registerUser);
+        userInstance.activation_key = 'randommstrignrequired';
+        userInstance.user_status = 'registered';
+        
+        userInstance.save()
           .then(function(newUser, created) {
             if (newUser) {
               // Redirect to new thank you page.
-              res.redirect('/thank-you');
+              res.redirect('/users/thank-you');
             } else {
               res.redirect('/register');
             }
+          }).catch(error => {
+            console.error(error);
           });
       }
     })
