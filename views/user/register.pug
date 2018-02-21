@@ -13,7 +13,7 @@ block content
 
     +showErrors(errors)
 
-    form(class="pa3-l pa2 pt0-l" method="post" action="/users/save"
+    form(class="pa3-l pa2 pt0-l" method="post" action="/register"
       accept-charset="utf-8" autocomplete="off")
       div(class="cf ph2-ns mt3")
         div(class="fl w-100 w-50-ns pv2-ns")
@@ -25,7 +25,7 @@ block content
               type="text" name="first_name" id="first_name" placeholder="Your First name"
               value=(undefined === registerData ? '' : registerData.first_name) required="true")
             input(type="hidden" name="_csrf" value=csrfToken)
-        
+
         div(class="fl w-100 w-50-ns pv2-ns pt2")
           div(class="fl-l w-30-l pa0")
             label(class="db fw4 lh-copy" for="last_name") Last name
@@ -34,7 +34,7 @@ block content
             input(class="pa2 input-reset ba b--black-20 bg-transparent w-100 measure"
               type="text" name="last_name" id="last_name" placeholder="Your Last name"
               value=(undefined === registerData ? '' : registerData.last_name) required="true")
-      
+
       div(class="cf ph2-ns mt1")
         div(class="fl w-100 w-50-ns pv2-ns")
           div(class="fl-l w-25-l pa0")
@@ -44,16 +44,16 @@ block content
             input(class="pa2 pa1 input-reset ba b--black-20 bg-transparent w-100 measure"
               type="email" name="email" id="email" placeholder="Your Email address"
               value=(undefined === registerData ? '' : registerData.email) required="true")
-        
+
         div(class="fl w-100 w-50-ns pv2-ns pt3")
           div(class="fl-l w-30-l pa0")
             label(class="db fw4 lh-copy" for="contact_number") Contact Number
           div(class="fl w-75 w-60-l pa0")
             input(class="pa2 input-reset ba b--black-20 bg-transparent w-100 measure"
-              type="text" name="contact_number" id="contact_number" 
+              type="text" name="contact_number" id="contact_number"
               placeholder="Your Last name" maxlength="35"
               value=(undefined === registerData ? '' : registerData.contact_number))
-      
+
       div(class="cf ph2-ns mt1")
         div(class="fl w-100 w-50-ns pv2-ns")
           div(class="fl-l w-25-l pa0")
@@ -69,7 +69,7 @@ block content
               span(class="f3 red") &ast;
           div(class="fl w-75 w-60-l pa0")
             input(class="pa2 pa1 input-reset ba b--black-20 bg-transparent w-100 measure"
-              type="password" name="password_repeat" id="password_repeat" 
+              type="password" name="password_repeat" id="password_repeat"
               placeholder="Repeat your password" minlength="8" maxlength="20" required="true")
 
       div(class="cf ph2-ns mt1")
@@ -91,7 +91,7 @@ block content
               type="text" name="zipcode" id="zipcode"
               value=(undefined === registerData ? '' : registerData.zipcode)
               placeholder="Your zipcode" minlength="5" maxlength="8" required="true")
-      
+
       div(class="cf ph2-ns mt1")
         div(class="fl w-100 w-50-ns pv2-ns")
           div(class="fl-l w-25-l pa0")
@@ -110,7 +110,7 @@ block content
               type="text" name="source_to_us" id="source_to_us"
               value=(undefined === registerData ? '' : registerData.source_to_us)
               placeholder="From where you hear about us" maxlength="20")
-      
+
       div(class="mt3-l")
         div(class="fl-l w-25 pa0")
           label(class="db fw4 lh-copy" for="gcaptcha") Captcha

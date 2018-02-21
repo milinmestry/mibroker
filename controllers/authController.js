@@ -1,9 +1,11 @@
 const menulinkData = require('../db/data/menulinkRepository');
+const models = require('../models'); // All models
+const UserModel = models.user; // User model
 
 exports.register = function (req, res, next) {
   menulinkData.getTopMenus()
     .then(function (listMenus) {
-      res.render('user/register', { 
+      res.render('user/register', {
         title: 'Register yourself with us', menuLinks: listMenus,
         activeMenu: 'register', csrfToken: req.csrfToken(),
         message: req.flash('signupMessage') });
@@ -13,12 +15,12 @@ exports.register = function (req, res, next) {
 
 /**
  * Save register/signup form
- *  
- * @param {*} req 
- * @param {*} res 
- * @param {*} next 
+ *
+ * @param {function} req
+ * @param {function} res
+ * @param {function} next
  */
-exports.save = function (req, res, next) {
+exports.processRegister = function (req, res, next) {
   // console.log('#12 pass=' + req.body.password);
   // console.log('#13 Rpass=' + req.body.password_repeat);
 
@@ -41,12 +43,16 @@ exports.save = function (req, res, next) {
     first_name: req.body.first_name,
     last_name: req.body.last_name,
     email: req.body.email,
+    passcode: req.body.password,// encrypt it
     contact_number: req.body.contact_number,
     address: req.body.address,
     zipcode: req.body.zipcode,
     country: req.body.country,
     source_to_us: req.body.source_to_us,
+    activation_key: 'randommstrignrequired',
+    user_status: 'registered'
   };
+console.log(registerUser);
 
   req.getValidationResult()
     .then(function (error) {
@@ -54,15 +60,22 @@ exports.save = function (req, res, next) {
       if (!error.isEmpty()) {
         menulinkData.getTopMenus()
           .then(function (listMenus) {
-            res.render('user/register', { title: 'MiB Hire A Broker', menuLinks: listMenus,
+            res.render('/register', { title: 'MiB Hire A Broker', menuLinks: listMenus,
               activeMenu: '/register', csrfToken: req.csrfToken(),
               errors: error.array(), registerData: registerUser, });
           });
 
         return;
       } else {
-        // Redirect to new thank_you page.
-        res.redirect('/login');
+        UserModel.create(registerUser)
+          .then(function(newUser, created) {
+            if (newUser) {
+              // Redirect to new thank you page.
+              res.redirect('/thank-you');
+            } else {
+              res.redirect('/register');
+            }
+          });
       }
     })
     .catch(function (error) {

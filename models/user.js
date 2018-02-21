@@ -3,15 +3,15 @@ module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('user', {
     first_name: {
       type: DataTypes.STRING(25),
-      allowNull: false,
+      allowNull: true, // SequelizeValidationError: notNull Violation: user.first_name cannot be null
       validate: {
         notEmpty: true,
         is: ['^[a-z]+$', 'i'],
         len: [1, 25],
       },
 
-      set(name) {
-        this.setDataValue(name);
+      set(first_name) {
+        this.setDataValue(first_name);
       },
 
       get() {
@@ -27,8 +27,8 @@ module.exports = (sequelize, DataTypes) => {
         len: [0, 25],
       },
 
-      set(name) {
-        this.setDataValue(name);
+      set(last_name) {
+        this.setDataValue(last_name);
       },
 
       get() {
@@ -37,15 +37,15 @@ module.exports = (sequelize, DataTypes) => {
     },
     email: {
       type: DataTypes.STRING(150),
-      allowNull: false,
+      allowNull: true,
       validate: {
         notEmpty: true,
         isEmail: true,
         len: [1, 150],
       },
 
-      set(name) {
-        this.setDataValue(name);
+      set(email) {
+        this.setDataValue(email);
       },
 
       get() {
@@ -60,8 +60,8 @@ module.exports = (sequelize, DataTypes) => {
         len: [1, 40],
       },
 
-      set(name) {
-        this.setDataValue(name);
+      set(contact_number) {
+        this.setDataValue(contact_number);
       },
 
       get() {
@@ -70,7 +70,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     passcode: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       validate: {
         notEmpty: true,
         notNull: true,
@@ -86,7 +86,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     address: {
       type: DataTypes.STRING(255),
-      allowNull: false,
+      allowNull: true,
       validate: {
         notEmpty: true,
         notNull: true,
@@ -104,7 +104,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     zipcode: {
       type: DataTypes.STRING(20),
-      allowNull: false,
+      allowNull: true,
       validate: {
         notEmpty: true,
         notNull: true,
@@ -122,7 +122,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     country: {
       type: DataTypes.STRING(60),
-      allowNull: false,
+      allowNull: true,
       validate: {
         notEmpty: true,
         notNull: true,
@@ -139,7 +139,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     user_status: {
       type: DataTypes.ENUM('active', 'inactive', 'registered', 'suspended'),
-      allowNull: false,
+      allowNull: true,
       defaultValue: 'inactive',
       validate: {
         notEmpty: true,
@@ -147,8 +147,8 @@ module.exports = (sequelize, DataTypes) => {
         isIn: [['active', 'inactive', 'registered', 'suspended']],
       },
 
-      set(status) {
-        this.setDataValue(status);
+      set(user_status) {
+        this.setDataValue(user_status);
       },
 
       get() {
@@ -163,8 +163,8 @@ module.exports = (sequelize, DataTypes) => {
         isIn: [['no', 'yes']],
       },
 
-      set(accountLocked) {
-        this.setDataValue(accountLocked);
+      set(account_locked) {
+        this.setDataValue(account_locked);
       },
 
       get() {
@@ -187,13 +187,13 @@ module.exports = (sequelize, DataTypes) => {
     },
     activation_key: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       validate: {
         notEmpty: true,
       },
 
-      set(activationKey) {
-        this.setDataValue(activationKey);
+      set(activation_key) {
+        this.setDataValue(activation_key);
       },
 
       get() {
@@ -206,8 +206,8 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
       },
 
-      set(activatedOn) {
-        this.setDataValue(activatedOn);
+      set(activated_on) {
+        this.setDataValue(activated_on);
       },
 
       get() {

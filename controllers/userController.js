@@ -3,7 +3,7 @@ const menulinkData = require('../db/data/menulinkRepository');
 exports.register = function (req, res, next) {
   menulinkData.getTopMenus()
     .then(function (listMenus) {
-      res.render('user/register', { 
+      res.render('user/register', {
         title: 'Register yourself with us', menuLinks: listMenus,
         activeMenu: 'register', csrfToken: req.csrfToken(),
         message: req.flash('signupMessage') });
@@ -12,10 +12,10 @@ exports.register = function (req, res, next) {
 
 /**
  * Save register/signup form
- *  
- * @param {*} req 
- * @param {*} res 
- * @param {*} next 
+ *
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
  */
 exports.save = function (req, res, next) {
   // console.log('#12 pass=' + req.body.password);
@@ -86,4 +86,9 @@ exports.profile = function (req, res, next) {
   res.render('user/profile', { message: req.flash('profileMessage'),
     user: req.user, // Get the user from the session
   });
+};
+
+// Render the user profile page and flash any message if exists
+exports.thankyou = function (req, res, next) {
+  res.render('user/thank-you', { message: req.flash('profileMessage')});
 };
