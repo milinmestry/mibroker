@@ -57,7 +57,7 @@ exports.processRegister = function (req, res, next) {
       if (!error.isEmpty()) {
         menulinkData.getTopMenus()
           .then(function (listMenus) {
-            res.render('/register', { title: 'MiB Hire A Broker', menuLinks: listMenus,
+            res.render('user/register', { title: 'MiB Hire A Broker', menuLinks: listMenus,
               activeMenu: '/register', csrfToken: req.csrfToken(),
               errors: error.array(), registerData: registerUser, });
           });
@@ -65,11 +65,10 @@ exports.processRegister = function (req, res, next) {
         return;
       } else {
         console.log(registerUser);
-        // const userInstance = UserModel.build(registerUser);
         const userInstance = UserModel.build(registerUser);
         userInstance.activation_key = 'randommstrignrequired';
         userInstance.user_status = 'registered';
-        
+
         userInstance.save()
           .then(function(newUser, created) {
             if (newUser) {
@@ -78,8 +77,16 @@ exports.processRegister = function (req, res, next) {
             } else {
               res.redirect('/register');
             }
+          }).catch(models.Sequelize.ValidationError, function (msg) {
+            console.error(msg);
+            res.render('user/register', { title: 'MiB Hire A Broker',
+              // menuLinks: listMenus,
+              activeMenu: '/register', csrfToken: req.csrfToken(),
+              errors: [{msg: 'Something went wrong!'}], registerData: registerUser, });
+            // return res.status(422).send(msg);
           }).catch(error => {
             console.error(error);
+            // return res.status(422).send(error);
           });
       }
     })

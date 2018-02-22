@@ -3,15 +3,15 @@ module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('user', {
     first_name: {
       type: DataTypes.STRING(25),
-      allowNull: true, // SequelizeValidationError: notNull Violation: user.first_name cannot be null
+      allowNull: false, // SequelizeValidationError: notNull Violation: user.first_name cannot be null
       validate: {
         notEmpty: true,
         is: ['^[a-z]+$', 'i'],
         len: [1, 25],
       },
 
-      set(first_name) {
-        this.setDataValue(first_name);
+      set(name) {
+        this.setDataValue('first_name', name);
       },
 
       get() {
@@ -27,8 +27,8 @@ module.exports = (sequelize, DataTypes) => {
         len: [0, 25],
       },
 
-      set(last_name) {
-        this.setDataValue(last_name);
+      set(name) {
+        this.setDataValue('last_name', name);
       },
 
       get() {
@@ -37,7 +37,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     email: {
       type: DataTypes.STRING(150),
-      allowNull: true,
+      allowNull: false,
+      unique: true,
       validate: {
         notEmpty: true,
         isEmail: true,
@@ -45,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
       },
 
       set(email) {
-        this.setDataValue(email);
+        this.setDataValue('email', email);
       },
 
       get() {
@@ -61,7 +62,7 @@ module.exports = (sequelize, DataTypes) => {
       },
 
       set(contact_number) {
-        this.setDataValue(contact_number);
+        this.setDataValue('contact_number', contact_number);
       },
 
       get() {
@@ -70,13 +71,13 @@ module.exports = (sequelize, DataTypes) => {
     },
     passcode: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
       validate: {
         notEmpty: true,
       },
 
       set(passcode) {
-        this.setDataValue(passcode);
+        this.setDataValue('passcode', passcode);
       },
 
       get() {
@@ -93,7 +94,7 @@ module.exports = (sequelize, DataTypes) => {
       },
 
       set(address) {
-        this.setDataValue(address);
+        this.setDataValue('address', address);
       },
 
       get() {
@@ -110,7 +111,7 @@ module.exports = (sequelize, DataTypes) => {
       },
 
       set(zipcode) {
-        this.setDataValue(zipcode);
+        this.setDataValue('zipcode', zipcode);
       },
 
       get() {
@@ -126,7 +127,7 @@ module.exports = (sequelize, DataTypes) => {
       },
 
       set(country) {
-        this.setDataValue(country);
+        this.setDataValue('country', country);
       },
 
       get() {
@@ -143,7 +144,7 @@ module.exports = (sequelize, DataTypes) => {
       },
 
       set(user_status) {
-        this.setDataValue(user_status);
+        this.setDataValue('user_status', user_status);
       },
 
       get() {
@@ -159,7 +160,7 @@ module.exports = (sequelize, DataTypes) => {
       },
 
       set(account_locked) {
-        this.setDataValue(account_locked);
+        this.setDataValue('account_locked', account_locked);
       },
 
       get() {
@@ -173,7 +174,7 @@ module.exports = (sequelize, DataTypes) => {
       },
 
       set(registeredOn) {
-        this.setDataValue(registeredOn);
+        this.setDataValue('registered_on', registeredOn);
       },
 
       get() {
@@ -188,7 +189,7 @@ module.exports = (sequelize, DataTypes) => {
       },
 
       set(activation_key) {
-        this.setDataValue(activation_key);
+        this.setDataValue('activation_key', activation_key);
       },
 
       get() {
@@ -202,7 +203,7 @@ module.exports = (sequelize, DataTypes) => {
       },
 
       set(activated_on) {
-        this.setDataValue(activated_on);
+        this.setDataValue('activated_on', activated_on);
       },
 
       get() {

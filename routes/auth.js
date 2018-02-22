@@ -9,7 +9,7 @@ module.exports = function(app, passport) {
   app.get('/login', authController.login);
   app.get('/logout', authController.logout);
   app.get('/dashboard', isLoggedIn, authController.dashboard);
-  app.post('/register', authController.processRegister);
+  app.post('/register', csrfProtection, authController.processRegister);
   app.post('/login', passport.authenticate(
     'local-login', { successRedirect: '/dashboard', failureRedirect: '/login'})
   );
