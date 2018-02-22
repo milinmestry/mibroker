@@ -234,6 +234,21 @@ module.exports = (sequelize, DataTypes) => {
         // associations can be defined here
       },
     },
-  });
+  }, {
+    hooks: { //http://docs.sequelizejs.com/manual/tutorial/hooks.html
+      beforeCreate: (user) => {
+        const salt = bcrypt.genSaltSync();
+        user.passcode = bcrypt.hashSync(user.passcode, salt);
+      }
+    },
+    instanceMethods: {
+      hasValidPassword: function(passcode) {
+        return bcrypt.compareSync(passcode, this.passcode);
+      }
+    }
+  }
+);
   return User;
 };
+// https://www.codementor.io/emjay/how-to-build-a-simple-session-based-authentication-system-with-nodejs-from-scratch-6vn67mcy3
+// http://www.barsaley.com/post/Sequelize_The_Legendary_Way/
