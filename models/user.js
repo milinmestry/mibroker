@@ -1,4 +1,7 @@
-'use strict';
+"use strict";
+
+const bCrypt = require("bcrypt-nodejs");
+
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('user', {
     first_name: {
@@ -57,8 +60,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(40),
       allowNull: true,
       validate: {
-        notEmpty: false,
-        len: [1, 40],
+        notEmpty: true, // @TODO make it optional
+        len: [0, 40],
       },
 
       set(contact_number) {
@@ -226,29 +229,61 @@ module.exports = (sequelize, DataTypes) => {
 
     charset: 'utf8',
     collate: 'utf8_unicode_ci',
-  },
-  {
-    underscored: true,
-    classMethods: {
-      associate: function (models) {
-        // associations can be defined here
-      },
-    },
-  }, {
-    hooks: { //http://docs.sequelizejs.com/manual/tutorial/hooks.html
-      beforeCreate: (user) => {
-        const salt = bcrypt.genSaltSync();
-        user.passcode = bcrypt.hashSync(user.passcode, salt);
-      }
-    },
-    instanceMethods: {
-      hasValidPassword: function(passcode) {
-        return bcrypt.compareSync(passcode, this.passcode);
-      }
-    }
-  }
-);
+  });
+
+  // class methods
+  User.associate = function(models) {
+    // associate models
+  };
+
+  // Instance methods
+  User.prototype.hasValidPassword = function(password, callback) {
+    // return bCrypt.compareSync(password, this.passcode);
+    
+    //stackoverflow.com/questions/48023018/nodejs-bcrypt-async-mongoose-login
+    bCrypt.compare(password, this.passcode, (err, isMatch) =>
+      callback(err, isMatch)
+    );
+  };
+
+  // hooks
+  User.hook('beforeCreate', (user, options) => {
+    // sync way to hash password
+    // const salt = bCrypt.genSaltSync(8);
+    // user.passcode = bCrypt.hashSync(user.passcode, salt);
+
+    // async way to hash password
+    return cryptPassword(user.passcode)
+      .then(hashPassword => {
+        user.passcode = hashPassword;
+      })
+      .catch(err => {
+        if (err) {
+          console.log(err);
+        }
+      });
+  });
+
   return User;
 };
+
+/**
+ * 
+ * @param {string} password 
+ * @return {promise} 
+ */
+function cryptPassword(password) {
+  return new Promise(function(resolve, reject) {
+    bCrypt.genSalt(8, function(err, salt) {
+      // Encrypt password using bycrpt module
+      if (err) return reject(err);
+
+      bCrypt.hash(password, salt, null, function(err, hash) {
+        if (err) return reject(err);
+        return resolve(hash);
+      });
+    });
+  });
+}
 // https://www.codementor.io/emjay/how-to-build-a-simple-session-based-authentication-system-with-nodejs-from-scratch-6vn67mcy3
 // http://www.barsaley.com/post/Sequelize_The_Legendary_Way/

@@ -65,11 +65,11 @@ exports.processRegister = function (req, res, next) {
         return;
       } else {
         console.log(registerUser);
-        const userInstance = UserModel.build(registerUser);
-        userInstance.activation_key = 'randommstrignrequired';
-        userInstance.user_status = 'registered';
+        // const userInstance = UserModel.build(registerUser);
+        registerUser.activation_key = 'randommstrignrequired';
+        registerUser.user_status = 'registered';
 
-        userInstance.save()
+        UserModel.create(registerUser)
           .then(function(newUser, created) {
             if (newUser) {
               // Redirect to new thank you page.
