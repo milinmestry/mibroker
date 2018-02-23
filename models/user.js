@@ -239,7 +239,7 @@ module.exports = (sequelize, DataTypes) => {
   // Instance methods
   User.prototype.hasValidPassword = function(password, callback) {
     // return bCrypt.compareSync(password, this.passcode);
-    
+
     //stackoverflow.com/questions/48023018/nodejs-bcrypt-async-mongoose-login
     bCrypt.compare(password, this.passcode, (err, isMatch) =>
       callback(err, isMatch)
@@ -268,9 +268,9 @@ module.exports = (sequelize, DataTypes) => {
 };
 
 /**
- * 
- * @param {string} password 
- * @return {promise} 
+ *
+ * @param {string} password
+ * @return {promise}
  */
 function cryptPassword(password) {
   return new Promise(function(resolve, reject) {

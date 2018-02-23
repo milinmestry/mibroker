@@ -1,6 +1,8 @@
+const APP_CONST = require("../common/constant-vars");
 const menulinkData = require('../db/data/menulinkRepository');
 const models = require('../models'); // All models
 const UserModel = models.user; // User model
+const Chance = require('chance').Chance(); // Utility to get Random data
 
 exports.register = function (req, res, next) {
   menulinkData.getTopMenus()
@@ -21,9 +23,6 @@ exports.register = function (req, res, next) {
  * @param {function} next
  */
 exports.processRegister = function (req, res, next) {
-  // console.log('#12 pass=' + req.body.password);
-  // console.log('#13 Rpass=' + req.body.password_repeat);
-
   // Validate fields
   req.checkBody('first_name', 'First name is required.').notEmpty();
   req.checkBody('first_name', 'First name must be between 2 to 20 characters.')
@@ -43,7 +42,7 @@ exports.processRegister = function (req, res, next) {
     first_name: req.body.first_name,
     last_name: req.body.last_name,
     email: req.body.email,
-    passcode: req.body.password,// encrypt it
+    passcode: req.body.password,// encrypted in model before save
     contact_number: req.body.contact_number,
     address: req.body.address,
     zipcode: req.body.zipcode,
@@ -64,10 +63,11 @@ exports.processRegister = function (req, res, next) {
 
         return;
       } else {
-        console.log(registerUser);
         // const userInstance = UserModel.build(registerUser);
-        registerUser.activation_key = 'randommstrignrequired';
-        registerUser.user_status = 'registered';
+        registerUser.activation_key = Chance.iban()+Chance.hammertime();
+        registerUser.user_status = APP_CONST.USER_STATUS.REGISTERED;
+        // To match with mysql unixtimestamp format, milliseconds are removed from JS Date object
+        registerUser.registered_on = Math.floor(new Date() / 1000);
 
         UserModel.create(registerUser)
           .then(function(newUser, created) {
