@@ -1,6 +1,9 @@
 "use strict";
 
+// const db = require('../models');
+// const Op = db.Sequelize.Op;
 const bCrypt = require("bcrypt-nodejs");
+const APP_CONST = require("../common/constant-vars");
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('user', {
@@ -60,8 +63,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(40),
       allowNull: true,
       validate: {
-        notEmpty: true, // @TODO make it optional
-        len: [0, 40],
+        // notEmpty: false, // @TODO make it optional
+        len: {
+          args: [[8, 40]],
+          msg: 'Contact number should be between length 8 to 40.',
+        },
+        // is: ['^[0-9\-,\s]+$', 'i']
       },
 
       set(contact_number) {
@@ -107,6 +114,7 @@ module.exports = (sequelize, DataTypes) => {
     zipcode: {
       type: DataTypes.STRING(20),
       allowNull: true,
+      msg: 'Zipcode should be at least 3 characters.',
       validate: {
         notEmpty: true,
         isAlphanumeric: true,
@@ -244,6 +252,26 @@ module.exports = (sequelize, DataTypes) => {
     bCrypt.compare(password, this.passcode, (err, isMatch) =>
       callback(err, isMatch)
     );
+  };
+
+  // Class Methods
+  User.verifyActivationKey = function(activationKey, callback) {
+    return this.findOne({
+      attributes: ['id', 'first_name', 'last_name', 'email'],
+      where: {
+        user_status: APP_CONST.USER_STATUS.REGISTERED,
+        activation_key: {
+          [sequelize.Op.eq]: activationKey
+        }
+      }
+    }).then(user => {
+      // callback(err, user);
+      return user;
+    });
+  };
+
+  User.fullName = function () {
+    return this.first_name + ' ' + this.last_name;
   };
 
   // hooks

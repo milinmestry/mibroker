@@ -76,7 +76,7 @@ const authRoutes = require('./routes/auth')(app, passport);
 
 // Use the Routes
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/user', usersRouter);
 app.use('/contact-us', contactUsRouter);
 
 // load passport strategies
@@ -105,6 +105,7 @@ app.use(function(err, req, res, next) {
 /**
  * Application level static variables
  */
+app.locals.__baseSiteUrl = '//localhost:3000/';
 app.locals.__sitename = 'MiBSite.com';
 app.locals.__title = 'MiB Express-Tachyons';
 app.locals.__description = 'A boilerplate for a simple web application with a \

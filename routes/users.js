@@ -16,6 +16,7 @@ const userController = require('../controllers/userController');
 
 // User profile route
 router.get('/profile', userController.profile);
+router.get('/activate/:activationKey', userController.activate);
 router.get('/thank-you', userController.thankyou);
 
 module.exports = router;

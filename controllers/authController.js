@@ -68,12 +68,13 @@ exports.processRegister = function (req, res, next) {
         registerUser.user_status = APP_CONST.USER_STATUS.REGISTERED;
         // To match with mysql unixtimestamp format, milliseconds are removed from JS Date object
         registerUser.registered_on = Math.floor(new Date() / 1000);
+        registerUser.added_by = APP_CONST.SITE_INFO.USERNAME; // added by system
 
         UserModel.create(registerUser)
           .then(function(newUser, created) {
             if (newUser) {
               // Redirect to new thank you page.
-              res.redirect('/users/thank-you');
+              res.redirect('/user/thank-you');
             } else {
               res.redirect('/register');
             }

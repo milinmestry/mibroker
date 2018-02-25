@@ -1,4 +1,6 @@
 const menulinkData = require('../db/data/menulinkRepository');
+const models = require('../models'); // All models
+const UserModel = models.user; // User model
 
 exports.register = function (req, res, next) {
   menulinkData.getTopMenus()
@@ -83,12 +85,51 @@ exports.logout = function (req, res, next) {
 
 // Render the user profile page and flash any message if exists
 exports.profile = function (req, res, next) {
-  res.render('user/profile', { message: req.flash('profileMessage'),
-    user: req.user, // Get the user from the session
-  });
+  // res.render('user/profile', { message: req.flash('profileMessage'),
+  //   user: req.user, // Get the user from the session
+  // });
+  menulinkData.getTopMenus()
+    .then(function (listMenus) {
+      res.render('user/profile', { 
+        title: 'Thank you for registering with us.', 
+        menuLinks: listMenus,
+        activeMenu: '',
+        message: req.flash('profileMessage'),
+        user: req.user, // Get the user from the session
+      });
+    });
 };
 
 // Render the user profile page and flash any message if exists
 exports.thankyou = function (req, res, next) {
-  res.render('user/thank-you', { message: req.flash('profileMessage')});
+  // res.render('user/thank-you', { message: req.flash('profileMessage')});
+  menulinkData.getTopMenus()
+    .then(function (listMenus) {
+      res.render('user/thank-you', { 
+        title: 'Thank you for registering with us.', 
+        menuLinks: listMenus,
+        activeMenu: '',
+        message: req.flash('thankYouMessage'),
+      });
+    });
+};
+
+// Render the user activation page and flash any message if exists
+exports.activate = function (req, res, next) {
+  UserModel.verifyActivationKey(req.params.activationKey, () => {})
+    .then(user => {
+      console.log(user);
+      return user;
+    })
+    .then(
+      menulinkData.getTopMenus()
+        .then(function (user, listMenus) {
+          res.render('user/activate', { title: 'MiB About MiB', 
+            menuLinks: listMenus,
+            activeMenu: '',
+            user: user,
+            message: req.flash('thankYouMessage'),
+          });
+        })
+    );
 };
