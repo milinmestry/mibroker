@@ -1,6 +1,7 @@
 const menulinkData = require('../db/data/menulinkRepository');
 const models = require('../models'); // All models
 const UserModel = models.user; // User model
+const async = require('async');
 
 exports.register = function (req, res, next) {
   menulinkData.getTopMenus()
@@ -90,8 +91,8 @@ exports.profile = function (req, res, next) {
   // });
   menulinkData.getTopMenus()
     .then(function (listMenus) {
-      res.render('user/profile', { 
-        title: 'Thank you for registering with us.', 
+      res.render('user/profile', {
+        title: 'Thank you for registering with us.',
         menuLinks: listMenus,
         activeMenu: '',
         message: req.flash('profileMessage'),
@@ -105,8 +106,8 @@ exports.thankyou = function (req, res, next) {
   // res.render('user/thank-you', { message: req.flash('profileMessage')});
   menulinkData.getTopMenus()
     .then(function (listMenus) {
-      res.render('user/thank-you', { 
-        title: 'Thank you for registering with us.', 
+      res.render('user/thank-you', {
+        title: 'Thank you for registering with us.',
         menuLinks: listMenus,
         activeMenu: '',
         message: req.flash('thankYouMessage'),
@@ -116,20 +117,31 @@ exports.thankyou = function (req, res, next) {
 
 // Render the user activation page and flash any message if exists
 exports.activate = function (req, res, next) {
-  UserModel.verifyActivationKey(req.params.activationKey, () => {})
-    .then(user => {
-      console.log(user);
-      return user;
-    })
-    .then(
+  async.parallel({
+    user: function(callback) {
+      UserModel.verifyActivationKey(req.params.activationKey,
+        () => {})
+        .then(userData => {
+          callback(null, userData);
+        });
+    },
+    listMenus: function(callback) {
       menulinkData.getTopMenus()
-        .then(function (user, listMenus) {
-          res.render('user/activate', { title: 'MiB About MiB', 
-            menuLinks: listMenus,
-            activeMenu: '',
-            user: user,
-            message: req.flash('thankYouMessage'),
-          });
-        })
-    );
+        .then(menus => {
+          callback(null, menus);
+        });
+    },
+  }, (err, results) => {
+    if (err) {
+      return next(err);
+    }
+
+    res.render('user/activate', { title: 'MiB About MiB',
+      menuLinks: results.listMenus,
+      activeMenu: '',
+      user: results.user,
+      userFullName: results.user.fullName(),
+      message: req.flash('thankYouMessage'),
+    });
+  });
 };

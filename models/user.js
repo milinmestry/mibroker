@@ -239,22 +239,13 @@ module.exports = (sequelize, DataTypes) => {
     collate: 'utf8_unicode_ci',
   });
 
-  // class methods
+  /**********************
+   * class methods
+   **********************/
   User.associate = function(models) {
     // associate models
   };
 
-  // Instance methods
-  User.prototype.hasValidPassword = function(password, callback) {
-    // return bCrypt.compareSync(password, this.passcode);
-
-    //stackoverflow.com/questions/48023018/nodejs-bcrypt-async-mongoose-login
-    bCrypt.compare(password, this.passcode, (err, isMatch) =>
-      callback(err, isMatch)
-    );
-  };
-
-  // Class Methods
   User.verifyActivationKey = function(activationKey, callback) {
     return this.findOne({
       attributes: ['id', 'first_name', 'last_name', 'email'],
@@ -270,11 +261,43 @@ module.exports = (sequelize, DataTypes) => {
     });
   };
 
-  User.fullName = function () {
-    return this.first_name + ' ' + this.last_name;
+  /**********************
+   *  Instance methods
+   **********************/
+  User.prototype.hasValidPassword = function(password, callback) {
+    // return bCrypt.compareSync(password, this.passcode);
+
+    //stackoverflow.com/questions/48023018/nodejs-bcrypt-async-mongoose-login
+    bCrypt.compare(password, this.passcode, (err, isMatch) =>
+      callback(err, isMatch)
+    );
   };
 
-  // hooks
+  User.prototype.fullName = function () {
+    return this.upper(this.first_name) + ' ' + this.upper(this.last_name);
+  };
+
+  /**
+   * Get string in capital letter. Ex. make first letter in capital.
+   * old      Old
+   * letter   Letter
+   *
+   * @param {string} str
+   * @return {string} str
+   */
+  User.prototype.upper = function (str) {
+    if (typeof str === 'string') {
+      if (str.length > 1) {
+        return str.slice(0,1).toUpperCase() + str.slice(1).toLowerCase();
+      }
+      return str.toUpperCase();
+    }
+    return null;
+  }
+
+  /**********************
+   * Class Hooks
+   **********************/
   User.hook('beforeCreate', (user, options) => {
     // sync way to hash password
     // const salt = bCrypt.genSaltSync(8);

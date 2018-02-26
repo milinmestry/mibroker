@@ -9,9 +9,13 @@ block header
 block content
   section(class="ba b--black-20 shadow-4 w-60 ma3 center")
     header(class="tc pa4 lh-copy")
-      h2(class="tc f3-l fw1 ma0") k = !{user.first_name} 
-        | your email is verified please 
-        a(class="link hover-yellow orange" href="/login") login 
-        | now.
+      if user
+        h2(class="tc f3-l fw1 ma0") #{userFullName}&comma;
+          |  your email is verified please&nbsp;
+          a(class="link hover-yellow orange" href="/login") login
+      else
+        h2(class="tc f3-l fw1 ma0") Did you register with us&quest;
+          a(class="link hover-yellow orange" href="/register")  Register now.
+
 
 block footer-container

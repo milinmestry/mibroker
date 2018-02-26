@@ -26,3 +26,4 @@ coverage
 benchmarks/graphs
 
 sql
+common/dbconnection.js
