@@ -253,7 +253,10 @@ module.exports = (sequelize, DataTypes) => {
         user_status: APP_CONST.USER_STATUS.REGISTERED,
         activation_key: {
           [sequelize.Op.eq]: activationKey
-        }
+        },
+        activated_on: {
+          [sequelize.Op.eq]: null
+        },
       }
     }).then(user => {
       // callback(err, user);
@@ -275,6 +278,33 @@ module.exports = (sequelize, DataTypes) => {
 
   User.prototype.fullName = function () {
     return this.upper(this.first_name) + ' ' + this.upper(this.last_name);
+  };
+
+  /**
+   * Update the data for new user activation in the system.
+   */
+  User.prototype.accountActivated = function () {
+    this.update({
+      // @ts-check Make a global function/method
+      activated_on : Math.floor(new Date() / 1000), // MySQL unix timestamp
+      updated_by: APP_CONST.SITE_INFO.USERNAME, // updated by system
+      user_status: APP_CONST.USER_STATUS.ACTIVE,
+    },{
+      where: {
+        id: this.id,
+        activated_on: {
+          [sequelize.Op.eq]: null
+        },
+      }
+    })
+    .then() // http://docs.sequelizejs.com/manual/tutorial/instances.html
+    .spread((affectedCount, affectedRows) => {
+      // .update returns two values in an array, therefore we use .spread
+      // Notice that affectedRows will only be defined in dialects which support returning: true
+
+      // affectedCount will be number of rows changed
+      return affectedCount;
+    });
   };
 
   /**

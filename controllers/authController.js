@@ -67,6 +67,7 @@ exports.processRegister = function (req, res, next) {
         registerUser.activation_key = Chance.iban()+Chance.hammertime();
         registerUser.user_status = APP_CONST.USER_STATUS.REGISTERED;
         // To match with mysql unixtimestamp format, milliseconds are removed from JS Date object
+        // @ts-check Make a global function/method
         registerUser.registered_on = Math.floor(new Date() / 1000);
         registerUser.added_by = APP_CONST.SITE_INFO.USERNAME; // added by system
 

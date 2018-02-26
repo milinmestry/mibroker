@@ -122,6 +122,10 @@ exports.activate = function (req, res, next) {
       UserModel.verifyActivationKey(req.params.activationKey,
         () => {})
         .then(userData => {
+          // Activate User Account
+          if (userData) {
+            userData.accountActivated();
+          }
           callback(null, userData);
         });
     },
@@ -140,7 +144,7 @@ exports.activate = function (req, res, next) {
       menuLinks: results.listMenus,
       activeMenu: '',
       user: results.user,
-      userFullName: results.user.fullName(),
+      userFullName: (results.user) ? results.user.fullName() : '',
       message: req.flash('thankYouMessage'),
     });
   });
