@@ -11,8 +11,16 @@ module.exports = function(app, passport) {
   app.get('/dashboard', isLoggedIn, authController.dashboard);
   app.post('/register', csrfProtection, authController.processRegister);
   app.post('/login/username', csrfProtection, authController.loginUsername);
-  app.post('/login/password', passport.authenticate(
-    'local-login', { successRedirect: '/dashboard', failureRedirect: '/login'})
+  app.post('/login/password', 
+    passport.authenticate(
+      'local-login', {
+        successRedirect: '/dashboard', 
+        failureRedirect: '/login',
+        failureFlash: true}
+    ),
+    function(req, res, next) {
+        res.redirect('/');
+    }
   );
 
   function isLoggedIn(req, res, next) {
