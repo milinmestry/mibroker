@@ -100,8 +100,24 @@ exports.processRegister = function (req, res, next) {
 
 // Render the login page and flash any message if exists
 exports.login = function (req, res, next) {
-  res.render('user/login', { message: req.flash('loginMessage') });
-  // res.render('buy-domains', { title: 'Please login', activeMenu: 'login', });
+  res.render('user/login', {
+    csrfToken: req.csrfToken(),
+    message: req.flash('loginMessage'),
+    'user': null,
+  });
+};
+
+// Render the login page and flash any message if exists
+exports.loginUsername = function (req, res, next) {
+  UserModel.verifyLoginUsername(req.body.username,
+    () => {})
+    .then(userData => {
+      res.render('user/login', {
+        csrfToken: req.csrfToken(),
+        message: req.flash('loginMessage', 'Invalid username'),
+        'user': userData,
+      });
+    });
 };
 
 exports.logout = function (req, res, next) {

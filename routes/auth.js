@@ -6,11 +6,12 @@ const csrfProtection = csrf({ cookie: true });
 
 module.exports = function(app, passport) {
   app.get('/register', csrfProtection, authController.register);
-  app.get('/login', authController.login);
+  app.get('/login', csrfProtection, authController.login);
   app.get('/logout', authController.logout);
   app.get('/dashboard', isLoggedIn, authController.dashboard);
   app.post('/register', csrfProtection, authController.processRegister);
-  app.post('/login', passport.authenticate(
+  app.post('/login/username', csrfProtection, authController.loginUsername);
+  app.post('/login/password', passport.authenticate(
     'local-login', { successRedirect: '/dashboard', failureRedirect: '/login'})
   );
 

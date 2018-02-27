@@ -1,6 +1,10 @@
 const bCrypt = require("bcrypt-nodejs");
 
 module.exports = function(passport, user) {
+  // console.error(passport);
+  // console.error(user);
+  // https://github.com/jaredhanson/passport-local
+
   const User = user;
   const LocalStrategy = require("passport-local").Strategy;
 
@@ -30,6 +34,8 @@ module.exports = function(passport, user) {
       },
       function(req, email, password, done) {
         const User = user;
+// console.log('#33 ' + email);
+// console.log('#34 ' + password);
 
         const isValidPassword = function(userpass, password) {
           return bCrypt.compareSync(password, userpass);
@@ -52,14 +58,14 @@ module.exports = function(passport, user) {
           // check password
           if (!isValidPassword(user.password, password)) {
             return done(null, false, {
-              message: "Email or password does not exists."
+              message: "Username/Password does not exists."
             });
           }
 
           return done(null, user.get());
         }).catch(function(err) {
           console.error('Error:', err);
-          return done(null, false, { 
+          return done(null, false, {
             message: 'Something were wrong in login process.'})
         });
       }

@@ -1,18 +1,32 @@
 extends ../layout1
 
 block content
-  main(class="pa4 black-80")
-    form(action="/user/login" method="post" class="measure center")
-      fieldset(id="signup" class="ba b--transparent ph0 nh0")
-        legend(class="f4 fw6 ph0 mh0") Sign In
-        div(class="mt3")
-          label(for="email" class="db fw6 lh-copy f6") Email
-          input(class="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="email" name="email" id="email")
-        div(class="mv3")
-          label(for="passcode" class="db fw6 lh-copy f6") Password
-          input(class="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="password" name="passcode" id="passcode")
-        div
-          input(type="submit" class="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" value="Sign In")
-        div(class="lh-copy mt3")
-          a(href="" class="f6 link dim black db") Sign up
-          a(href="" class="f6 link dim black db") Forgot your password&queston;
+  if user != null && user.email
+    - var formAction = '/login/password';
+    - var usernameValue = user.email;
+  else
+    - var formAction = '/login/username';
+    - var usernameValue = '';
+
+
+  div(class="pa4 black-60 center")
+    article(class="mw5 mw6-ns center bg-white br3 pa3 pa4-ns mv3 shadow-4")
+      form(action=formAction method="post" class="measure center" autocomplete="on")
+        input(type="hidden" name="_csrf" value=csrfToken)
+        fieldset(id="signup" class="ba b--transparent ph0 nh0")
+          legend(class="f4 fw6 ph0 mh0") Sign In
+          div(class="mt3 mv3")
+            label(for="username" class="db fw6 lh-copy f6") Username
+            input(class="pa2 input-reset ba bg-transparent hover-bg-washed-yellow hover-black w-100" type="email" name="username" id="username" value=usernameValue required="required")
+
+          if user != null && user.email
+            div(class="mv3")
+              label(for="password" class="db fw6 lh-copy f6") Password
+              input(class="b pa2 input-reset ba bg-transparent hover-bg-washed-yellow hover-black w-100" type="password" name="password" id="password" required="required")
+          div(class="tr")
+            input(type="submit" class="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" value="Sign In")
+          div(class="lh-copy mt3")
+            a(href="/register" class="f6 link dim orange db") Sign up
+            a(href="/forgot-password" class="f6 link dim orange db") Forgot your password&quest;
+
+block footer-container

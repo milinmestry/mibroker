@@ -246,6 +246,13 @@ module.exports = (sequelize, DataTypes) => {
     // associate models
   };
 
+  /**
+   * Activate user account
+   *
+   * @param {string} activationKey
+   * @param {function} callback [optional]
+   * @return {object}
+   */
   User.verifyActivationKey = function(activationKey, callback) {
     return this.findOne({
       attributes: ['id', 'first_name', 'last_name', 'email'],
@@ -255,6 +262,29 @@ module.exports = (sequelize, DataTypes) => {
           [sequelize.Op.eq]: activationKey
         },
         activated_on: {
+          [sequelize.Op.eq]: null
+        },
+      }
+    }).then(user => {
+      // callback(err, user);
+      return user;
+    });
+  };
+
+  /**
+   * Check username exists before ckecking password
+   *
+   * @param {string} activationKey
+   * @param {function} callback [optional]
+   * @return {object}
+   */
+  User.verifyLoginUsername = function(username, callback) {
+    return this.findOne({
+      attributes: ['id', 'email'],
+      where: {
+        user_status: APP_CONST.USER_STATUS.ACTIVE,
+        email: username,
+        account_locked: {
           [sequelize.Op.eq]: null
         },
       }
@@ -297,13 +327,16 @@ module.exports = (sequelize, DataTypes) => {
         },
       }
     })
-    .then() // http://docs.sequelizejs.com/manual/tutorial/instances.html
+    //.then(() => {}) // http://docs.sequelizejs.com/manual/tutorial/instances.html
     .spread((affectedCount, affectedRows) => {
       // .update returns two values in an array, therefore we use .spread
       // Notice that affectedRows will only be defined in dialects which support returning: true
 
       // affectedCount will be number of rows changed
       return affectedCount;
+    })
+    .catch(err => {
+      console.error(err);
     });
   };
 
