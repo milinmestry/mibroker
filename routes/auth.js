@@ -8,28 +8,29 @@ module.exports = function(app, passport) {
   app.get('/register', csrfProtection, authController.register);
   app.get('/login', csrfProtection, authController.login);
   app.get('/logout', authController.logout);
-  app.get('/dashboard', isLoggedIn, authController.dashboard);
   app.post('/register', csrfProtection, authController.processRegister);
   app.post('/login/username', csrfProtection, authController.loginUsername);
   app.post('/login/password',
     passport.authenticate(
       'local-login', {
-        successRedirect: '/dashboard',
+        // successRedirect: '/dashboard',
         failureRedirect: '/login',
         failureFlash: true}
     ),
     function(req, res, next) {
-      res.redirect('/');
+      // console.log(req.user.email);
+      
+      res.redirect('/user/dashboard');
     }
   );
 
-  function isLoggedIn(req, res, next) {
-    console.log('isAuthenticated=' + req.isAuthenticated());
+  // function isLoggedIn(req, res, next) {
+  //   console.log('isAuthenticated=' + req.isAuthenticated());
 
-    if (req.isAuthenticated()) {
-      return next();
-    }
+  //   if (req.isAuthenticated()) {
+  //     return next();
+  //   }
 
-    res.redirect('/login');
-  }
-}
+  //   res.redirect('/login');
+  // }
+};

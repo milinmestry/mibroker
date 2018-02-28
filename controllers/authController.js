@@ -125,9 +125,3 @@ exports.logout = function (req, res, next) {
   res.redirect('/');
   // res.render('buy-domains', { title: 'logout', activeMenu: 'login', });
 };
-
-// Render the dashboard page and flash any message if exists
-exports.dashboard = function (req, res, next) {
-  res.render('/dashboard', { message: req.flash('dashboardMessage') });
-  // res.render('buy-domains', { title: 'Please login', activeMenu: 'login', });
-};

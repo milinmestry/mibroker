@@ -9,6 +9,7 @@ const session = require('express-session'); // web secure
 const expressValidator = require('express-validator');
 const passport = require('passport');
 const flash = require('connect-flash');
+// const isLoggedIn = require('./middlewares/user');
 
 // Express app
 var app = express();
@@ -65,6 +66,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser()); // we need this because "cookie" is true in csrfProtection
 app.use(expressValidator());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// app.use(isLoggedIn);
 
 /**
  * define routes

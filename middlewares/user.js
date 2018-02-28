@@ -10,8 +10,8 @@ module.exports = isLoggedIn;
  * @param {function} next 
  */
 function isLoggedIn(req, res, next) {
-  console.log(req);
-  
+  // console.log(req);
+  // https://stackoverflow.com/questions/17756848/only-allow-passportjs-authenticated-users-to-visit-protected-page  
   // if the user is authenticated in the session, continue
   if (req.isAuthenticated()) {
     return next();

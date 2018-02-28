@@ -32,10 +32,6 @@ module.exports = function(passport, user) {
       },
       function(req, email, password, done) {
         const isValidPassword = function(userpass, password) {
-          // console.log('bCrypt dbp=' + userpass);
-          // console.log('bCrypt urp=' + password);
-          // console.log('bCrypt res=' + bCrypt.compareSync(password, userpass));
-
           return bCrypt.compareSync(password, userpass);
         };
 
@@ -51,9 +47,6 @@ module.exports = function(passport, user) {
 
           // check password
           if (!isValidPassword(user.passcode, password)) {
-            // console.log('dbpass=' + user.passcode);
-            // console.log('userpass=' + password);
-
             return done(null, false, {
               message: "Username/Password does not matched."
             });
@@ -61,29 +54,7 @@ module.exports = function(passport, user) {
 
           // Success
           return done(null, user);
-        })
-          // .then(function(err, user) {
-          //   if (err) { return done(err); }
-          //   // check email
-          //   if (!user) {
-          //     return done(null, false, {
-          //       message: "Email or password does not exists."
-          //     });
-          //   }
-
-          //   // check password
-          //   if (!isValidPassword(user.password, password)) {
-          //     return done(null, false, {
-          //       message: "Username/Password does not exists."
-          //     });
-          //   }
-
-          //   return done(null, user);
-          // })
-          // .catch(function(err) {
-          //   console.error('Catch :', err);
-          // // return done(err);
-          // });
+        });
       }
     )
   );

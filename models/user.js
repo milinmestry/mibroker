@@ -332,8 +332,6 @@ module.exports = (sequelize, DataTypes) => {
         email: email,
       }
     }).then(user => {
-      console.log('usermodel USER =' + user);
-
       if (!user) {
         callback(null, false);
       }
