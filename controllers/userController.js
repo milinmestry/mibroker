@@ -124,7 +124,7 @@ exports.activate = function (req, res, next) {
         .then(userData => {
           // Activate User Account
           if (userData) {
-            userData.accountActivated();
+            userData.activateAccount();
           }
           callback(null, userData);
         });

@@ -103,7 +103,7 @@ exports.login = function (req, res, next) {
   res.render('user/login', {
     csrfToken: req.csrfToken(),
     message: req.flash('loginMessage'),
-    'user': null,
+    user: null,
   });
 };
 

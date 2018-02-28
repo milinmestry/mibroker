@@ -294,6 +294,54 @@ module.exports = (sequelize, DataTypes) => {
     });
   };
 
+  /**
+   * Find user details in the database table for given user id.
+   *
+   * @param {integer} id
+   * @param {function} callback
+   * @return void
+   */
+  User.findById = function(id, callback) {
+    return this.findOne({
+      attributes: ['id', 'email', 'first_name', 'last_name'
+        , 'user_status', 'account_locked'],
+      where: {
+        id: id,
+      }
+    }).then((err, user) => {
+      if (err) {
+        callback(err, null);
+      }
+      callback(null, user);
+      // return user;
+    });
+  };
+
+  /**
+   * Find user details in the database table for given user email address.
+   *
+   * @param {string} email
+   * @param {function} callback
+   * @return void
+   */
+  User.findByEmail = function(email, callback) {
+    this.findOne({
+      attributes: ['id', 'email', 'first_name', 'last_name', 'passcode'
+        , 'user_status', 'account_locked'],
+      where: {
+        email: email,
+      }
+    }).then(user => {
+      console.log('usermodel USER =' + user);
+
+      if (!user) {
+        callback(null, false);
+      }
+      callback(null, user);
+      // return user;
+    });
+  };
+
   /**********************
    *  Instance methods
    **********************/
@@ -313,7 +361,7 @@ module.exports = (sequelize, DataTypes) => {
   /**
    * Update the data for new user activation in the system.
    */
-  User.prototype.accountActivated = function () {
+  User.prototype.activateAccount = function () {
     this.update({
       // @ts-check Make a global function/method
       activated_on : Math.floor(new Date() / 1000), // MySQL unix timestamp
@@ -382,7 +430,7 @@ module.exports = (sequelize, DataTypes) => {
 };
 
 /**
- *
+ * https://medium.com/@nohkachi/local-authentication-with-express-4-x-and-passport-js-745eba47076d
  * @param {string} password
  * @return {promise}
  */
