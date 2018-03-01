@@ -302,15 +302,15 @@ module.exports = (sequelize, DataTypes) => {
    * @return void
    */
   User.findById = function(id, callback) {
-    return this.findOne({
+    this.findOne({
       attributes: ['id', 'email', 'first_name', 'last_name'
         , 'user_status', 'account_locked'],
       where: {
         id: id,
       }
-    }).then((err, user) => {
-      if (err) {
-        callback(err, null);
+    }).then(user => {
+      if (!user) {
+        callback(null, false);
       }
       callback(null, user);
       // return user;

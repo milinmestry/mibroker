@@ -8,11 +8,14 @@ module.exports = function(passport, user) {
 
   // Serialize user data for session
   passport.serializeUser(function(user, done) {
+    console.log('serialize =====> ' + user.id);
+
     done(null, user.id);
   });
 
   // De-serialize user data for session
   passport.deserializeUser(function(id, done) {
+    console.log('deserialize =====> ' + user.id);
     User.findById(id, function(err, user) {
       if (user) {
         done(null, user);

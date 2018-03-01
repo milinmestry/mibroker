@@ -24,12 +24,14 @@ app.use(helmet({
 
 /**
  * passport
+ *
+ * cookie.secure = true; will break passport local strategy; set it as false
  */
 app.use(session({
   secret: '@OmbhurBhavas$waha#tatsav!turvarenyam!',
   resave: false,
   saveUninitialized: true,
-  cookie: { httpOnly: true,  secure: true },
+  cookie: { httpOnly: true,  secure: false },
 }));
 
 app.use(passport.initialize());

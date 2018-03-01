@@ -17,7 +17,7 @@ const userController = require('../controllers/userController');
 
 // User profile route
 router.get('/dashboard', isLoggedIn, userController.dashboard);
-router.get('/profile', userController.profile);
+router.get('/profile', isLoggedIn, userController.profile);
 router.get('/activate/:activationKey', userController.activate);
 router.get('/thank-you', userController.thankyou);
 
