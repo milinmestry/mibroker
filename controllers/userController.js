@@ -71,6 +71,6 @@ exports.activate = function (req, res, next) {
 
 // Render the dashboard page and flash any message if exists
 exports.dashboard = function (req, res, next) {
-  res.render('/dashboard', { message: req.flash('dashboardMessage') });
+  res.render('user/dashboard', { message: req.flash('dashboardMessage') });
   // res.render('buy-domains', { title: 'Please login', activeMenu: 'login', });
 };

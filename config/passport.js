@@ -8,21 +8,22 @@ module.exports = function(passport, user) {
 
   // Serialize user data for session
   passport.serializeUser(function(user, done) {
-    console.log('serialize =====> ' + user.id);
-
-    done(null, user.id);
+    userData = { id: user.id, fname: user.first_name, 
+      lname: user.last_name, email: user.email
+    };
+    done(null, userData);
   });
 
   // De-serialize user data for session
-  passport.deserializeUser(function(id, done) {
-    console.log('deserialize =====> ' + user.id);
-    User.findById(id, function(err, user) {
-      if (user) {
-        done(null, user);
-      } else {
-        done(err);
-      }
-    });
+  passport.deserializeUser(function(userData, done) {
+    done(null, userData);
+    // User.findById(id, function(err, user) {
+    //   if (user) {
+    //     done(null, user);
+    //   } else {
+    //     done(err);
+    //   }
+    // });
   });
 
   passport.use(

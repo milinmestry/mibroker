@@ -11,7 +11,7 @@ mixin showMenuLinks(links, active)
               - var aClass = 'orange ' + defaultClasses
             else
               - var aClass = 'white ' + defaultClasses
-            a(href=link.slug class=aClass title=link.title) #{link.label}
+            a(href='/' + link.slug class=aClass title=link.title) #{link.label}
       else
         li No menu link.
 
@@ -32,7 +32,7 @@ mixin showBanner(title, subTitle)
           size="50" style="background-image: url(/images/icons/search.png)")
         input(type="submit" value="Search Now" class="ml2-l bg-orange white b f4 link br2 bn ph4-l pv3-l pv2 mb2 dib mt2 pointer")
         p
-          a(href="search/advanced" class="link hover-gold orange") Advanced Search
+          a(href="/search/advanced" class="link hover-gold orange") Advanced Search
               
 mixin showHeader(links, active, title, subTitle)
   div(class="cover bg-left bg-center-l"
@@ -51,8 +51,14 @@ mixin showHeader(links, active, title, subTitle)
                 fill-rule="nonzero")
 
         div(class="fl w-50 w-two-thirds-ns pa2 tr")
-          a(class="link hover-orange white pa2 ph3" href="/login") Login
-          a(class="link hover-orange white pa2 ph3" href="/register") Register
+          #{sessionUser.email}
+          if sessionUser
+            a(class="link hover-orange white pa2 ph3" href="/user/profile")
+              | #{sessionUser.fname}
+            a(class="link hover-orange white pa2 ph3" href="/logout") Logout
+          else
+            a(class="link hover-orange white pa2 ph3" href="/login") Login
+            a(class="link hover-orange white pa2 ph3" href="/register") Register
       
       div(class="cf ph2-ns bb bt b--silver")
         div(class="fl w-15 pa2 br b--silver")
@@ -68,14 +74,14 @@ mixin showFooterCategories(categories)
     each category in categories
       li(class="")
         span(class="gold f3") &GreaterGreater;
-        a(href='category/'+category.id class="link black-60 hover-orange ml1" title=category.name) #{category.name}
+        a(href='/category/'+category.id class="link black-60 hover-orange ml1" title=category.name) #{category.name}
 
 mixin showFooterLinks(links)
   if links
     ul(class="list pt1-l")
       each link in links
         li(class="dib-l link pv2-l pv1-l ph2-l ph1")
-          a(href=link.slug class='link orange hover-gold' title=link.title) #{link.label}
+          a(href='/' + link.slug class='link orange hover-gold' title=link.title) #{link.label}
       else
         li No footer link.
 

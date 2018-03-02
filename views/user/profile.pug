@@ -1,0 +1,14 @@
+extends ../layout1
+
+block header
+  +showHeader(menuLinks, activeMenu,
+    '',
+    'Find The Best Domain Name For You or Your Business'
+  )
+
+block content
+  section(class="ba b--black-20 shadow-4 w-60 ma3 center")
+    header(class="tc pa4 lh-copy")
+      h2(class="tc f3-l fw1 ma0") #{user.first_name}
+
+block footer-container

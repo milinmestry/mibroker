@@ -18,9 +18,18 @@ app.use(helmet({
   frameguard: { action: 'deny' }, // For iframe
 }));
 
-// const sequelize = require('./common/dbconnection'); // Database
-
 // https://nodewebapps.com/2017/01/03/13-security-best-practices-for-your-web-application/
+
+
+// uncomment after placing your favicon in /public
+//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser('@OmbhurBhavas$waha#tatsav!turvarenyam!')); // we need this because "cookie" is true in csrfProtection
+app.use(expressValidator());
+app.use(express.static(path.join(__dirname, 'public')));
 
 /**
  * passport
@@ -30,13 +39,20 @@ app.use(helmet({
 app.use(session({
   secret: '@OmbhurBhavas$waha#tatsav!turvarenyam!',
   resave: false,
+  key: 'ssssiiidd',
   saveUninitialized: true,
-  cookie: { httpOnly: true,  secure: false },
+  cookie: { httpOnly: true,  secure: false, 'maxAge': 2419200000 },
 }));
 
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for showing messages stored in session
+
+// Access session in all templates
+app.use(function(req, res, next) {
+  res.locals.sessionUser = req.user;
+  next();
+});
 
 /**
  * Models
@@ -58,18 +74,6 @@ Models.sequelize.sync()
  */
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
-
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser()); // we need this because "cookie" is true in csrfProtection
-app.use(expressValidator());
-app.use(express.static(path.join(__dirname, 'public')));
-
-// app.use(isLoggedIn);
 
 /**
  * define routes
