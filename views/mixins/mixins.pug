@@ -51,7 +51,6 @@ mixin showHeader(links, active, title, subTitle)
                 fill-rule="nonzero")
 
         div(class="fl w-50 w-two-thirds-ns pa2 tr")
-          #{sessionUser.email}
           if sessionUser
             a(class="link hover-orange white pa2 ph3" href="/user/profile")
               | #{sessionUser.fname}
@@ -85,8 +84,9 @@ mixin showFooterLinks(links)
       else
         li No footer link.
 
-      a(class="link hover-gold orange ph2-l" href="/login") Login &sol;
-      a(class="link hover-gold orange" href="/register") Register
+      if !sessionUser
+        a(class="link hover-gold orange ph2-l" href="/login") Login &sol;
+        a(class="link hover-gold orange" href="/register") Register
 
 mixin showErrors(errors)
   if errors

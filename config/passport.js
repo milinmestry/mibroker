@@ -44,16 +44,16 @@ module.exports = function(passport, user) {
 
           // No user exists
           if (!user) {
-            return done(null, false, {
-              message: "Username/Password does not exists."
-            });
+            return done(null, false,
+              req.flash('loginMessage', 'Username/Password does not exists.')
+            );
           }
 
           // check password
           if (!isValidPassword(user.passcode, password)) {
-            return done(null, false, {
-              message: "Username/Password does not matched."
-            });
+            return done(null, false,
+              req.flash('loginMessage', 'Username/Password does not matched.')
+            );
           }
 
           // Success

@@ -102,7 +102,7 @@ exports.processRegister = function (req, res, next) {
 exports.login = function (req, res, next) {
   res.render('user/login', {
     csrfToken: req.csrfToken(),
-    message: req.flash('loginMessage'),
+    message: req.flash('loginMessage'), // from passport JS validation
     user: null,
   });
 };
@@ -114,7 +114,7 @@ exports.loginUsername = function (req, res, next) {
     .then(userData => {
       res.render('user/login', {
         csrfToken: req.csrfToken(),
-        message: req.flash('loginMessage', 'Invalid username'),
+        message: (!userData) ? 'Invalid Username' : '',
         'user': userData,
       });
     });
