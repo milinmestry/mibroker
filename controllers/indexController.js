@@ -66,6 +66,6 @@ exports.about_us = function (req, res, next) {
   menulinkData.getTopMenus()
     .then(function (listMenus) {
       res.render('about-us', { title: 'MiB About MiB', menuLinks: listMenus,
-        activeMenu: 'about-us', });
+        activeMenu: '/about-us', });
     });
 };

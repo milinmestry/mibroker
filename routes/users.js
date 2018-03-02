@@ -12,7 +12,7 @@ const router = express.Router();
 // Require controller modules
 const userController = require('../controllers/userController');
 
-// router.get('/', userController.index);
+router.get('/', userController.dashboard);
 // router.post('/save', parseForm, csrfProtection, userController.save);
 
 // User profile route

@@ -100,11 +100,16 @@ exports.processRegister = function (req, res, next) {
 
 // Render the login page and flash any message if exists
 exports.login = function (req, res, next) {
-  res.render('user/login', {
-    csrfToken: req.csrfToken(),
-    message: req.flash('loginMessage'), // from passport JS validation
-    user: null,
-  });
+  // User already logged-in
+  if (req.user != undefined) {
+    res.redirect('/user/profile');
+  } else { // Show login form
+    res.render('user/login', {
+      csrfToken: req.csrfToken(),
+      message: req.flash('loginMessage'), // from passport JS validation
+      user: null,
+    });
+  }
 };
 
 // Render the login page and flash any message if exists

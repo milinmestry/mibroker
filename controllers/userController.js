@@ -10,6 +10,8 @@ exports.profile = function (req, res, next) {
   // });
   menulinkData.getTopMenus()
     .then(function (listMenus) {
+      // console.log('=>>>>>>>>>>>>'+JSON.stringify(req.user));
+      
       res.render('user/profile', {
         title: 'Thank you for registering with us.',
         menuLinks: listMenus,
