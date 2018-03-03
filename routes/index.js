@@ -21,8 +21,8 @@ router.get('/', function (req, res, next) {
 */
 
 router.get('/', indexController.home);
-router.get('/buy-domains', indexController.buy_domains);
-router.get('/sell-domains', indexController.sell_domains);
+router.get('/buy-furnitures', indexController.buy_domains);
+router.get('/sell-furnitures', indexController.sell_domains);
 router.get('/about-us', indexController.about_us);
 
 // router.get('/register', csrfProtection, userController.register);

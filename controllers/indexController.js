@@ -43,21 +43,21 @@ exports.home = function (req, res, next) {
     });
 };
 
-// Buy Domains
+// Buy
 exports.buy_domains = function (req, res, next) {
   menulinkData.getTopMenus()
     .then(function (listMenus) {
-      res.render('buy-domains', { title: 'MiB Buy Domains', menuLinks: listMenus,
-        activeMenu: 'buy-domains', });
+      res.render('buy-domains', { title: 'MiB Buy', menuLinks: listMenus,
+        activeMenu: '/buy-furnitures', });
     });
 };
 
-// Sell Domains
+// Sell
 exports.sell_domains = function (req, res, next) {
   menulinkData.getTopMenus()
     .then(function (listMenus) {
-      res.render('sell-domains', { title: 'MiB Sell Domains', menuLinks: listMenus,
-        activeMenu: 'sell-domains', });
+      res.render('sell-domains', { title: 'MiB Sell', menuLinks: listMenus,
+        activeMenu: '/sell-furnitures', });
     });
 };
 

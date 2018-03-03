@@ -10,10 +10,10 @@ block content
   div(class="w-100 w-60-l pa0 f5-l f7 ba b--black-20 center mv3 shadow-4")
     div(class="bb b--black-10 bw2")
       h2(class="orange ph3") Contact Us
-    
+
     +showErrors(errors)
-    
-    form(class="pa4-l pa2 pt0-l" method="post" action="/contact-us/save" accept-charset="utf-8" autocomplete="off")
+
+    form(class="pa4-l pa2 pt0-l" method="post" action="/contact-us/save" accept-charset="utf-8" autocomplete="off" id="formContactUs")
       div(class="mt3-l")
         div(class="fl-l w-25 pa0")
           label(class="db fw4 lh-copy" for="first_name") First name
@@ -22,7 +22,7 @@ block content
           input(class="pa2 pa1 input-reset ba b--black-20 bg-transparent w-100 measure"
             type="text" name="first_name" id="first_name" placeholder="Your First name"
             value=(undefined === contactUsData ? '' : contactUsData.first_name) required="true")
-          input(type="hidden" name="_csrf" value=csrfToken)  
+          input(type="hidden" name="_csrf" value=csrfToken)
       div(class="cf")
 
       div(class="mt3-l")
@@ -80,7 +80,7 @@ block content
         div(class="fl w-75 pa0")
           div
       div(class="cf")
-        
+
       div(class="w-100 tc")
         input(class="f6 link hover-gold pointer ph3 pv2 br2 ba b--purple dib white bg-purple" type="submit"
           value="Send Message")

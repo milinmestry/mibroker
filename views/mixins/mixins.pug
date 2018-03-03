@@ -8,7 +8,7 @@ mixin showMenuLinks(links, active)
         if link.menu_position == 'TOP'
           li(class="dib-l link pv2-l pv1-l ttu ph3-l ph1")
             if active == link.slug
-              - var aClass = 'gold ' + defaultClasses
+              - var aClass = 'yellow ' + defaultClasses
             else
               - var aClass = 'white ' + defaultClasses
             a(href=link.slug class=aClass title=link.title) #{link.label}
@@ -17,18 +17,18 @@ mixin showMenuLinks(links, active)
 
 mixin showBanner(title, subTitle)
   - var aClass = 'pt4 pb6 mt5';
-  
+
   if title == ''
     - var aClass = 'pb3 mt4';
-  
+
   div(class=aClass)
     div(class="tc tc-l pt0")
       if title
         h1(class="f2 f1-l fw9 white mb0 mt0 lh-title")= title
       h2(class="fw1 f3-l white")= subTitle
       form(method="get" action="/search")
-        input(type="text" placeholder="What are you looking for?" 
-          class="f6 f4-l input-reset bn black-80 bg-white pa3 lh-solid br2-ns contain bg-left bg-right-l" 
+        input(type="text" placeholder="What are you looking for?"
+          class="f6 f4-l input-reset bn black-80 bg-white pa3 lh-solid br2-ns contain bg-left bg-right-l"
           size="50" style="background-image: url(/images/icons/search.png)")
         input(type="submit" value="Search Now" class="ml2-l bg-orange white b f4 link br2 bn ph4-l pv3-l pv2 mb2 dib mt2 pointer")
         p
@@ -41,8 +41,8 @@ mixin showHeader(links, active, title, subTitle)
         div(class="fl w-50 w-third-ns pa2")
           a(class="link light-purple hover-white" href="//www.facebook.com/help"
             target="_BLANK")
-            svg(xmlns="http://www.w3.org/2000/svg" version="1.1" data-icon="Facebook" 
-              viewBox="0 0 16 16" fill-rule="evenodd" clip-rule="evenodd" 
+            svg(xmlns="http://www.w3.org/2000/svg" version="1.1" data-icon="Facebook"
+              viewBox="0 0 16 16" fill-rule="evenodd" clip-rule="evenodd"
               stroke-linejoin="round" stroke-miterlimit="1.414" fill="currentColor"
               width="20" height="20")
               title Facebook
@@ -57,8 +57,8 @@ mixin showHeader(links, active, title, subTitle)
             a(class="link hover-gold white pa2 ph3" href="/logout") Logout
           else
             a(class="link hover-gold white pa2 ph3" href="/login") Login
-            a(class="link hover-gold white pa2 ph3" href="/register") Register
-      
+            a(class="link hover-gold white pa2 ph3" href="/register#formRegister") Register
+
       div(class="cf ph2-ns bb bt b--silver")
         div(class="fl w-15 pa2 br b--silver")
           a(class="link" href="/")
@@ -67,7 +67,7 @@ mixin showHeader(links, active, title, subTitle)
         div(class="fl-l w-80 ml5 tr f7")
           +showMenuLinks(links, active)
       +showBanner(title, subTitle)
-      
+
 mixin showFooterCategories(categories)
   ul(class="list pa0")
     each category in categories
