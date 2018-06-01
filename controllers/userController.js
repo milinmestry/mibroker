@@ -11,9 +11,9 @@ exports.profile = function (req, res, next) {
   menulinkData.getTopMenus()
     .then(function (listMenus) {
       // console.log('=>>>>>>>>>>>>'+JSON.stringify(req.user));
-      
+
       res.render('user/profile', {
-        title: 'Thank you for registering with us.',
+        title: 'My profile',
         menuLinks: listMenus,
         activeMenu: '',
         message: req.flash('profileMessage'),
@@ -73,6 +73,9 @@ exports.activate = function (req, res, next) {
 
 // Render the dashboard page and flash any message if exists
 exports.dashboard = function (req, res, next) {
-  res.render('user/dashboard', { message: req.flash('dashboardMessage') });
+  res.render('user/dashboard', {
+    message: req.flash('dashboardMessage'),
+    title: 'My Dashboard'
+  });
   // res.render('buy-domains', { title: 'Please login', activeMenu: 'login', });
 };

@@ -3,12 +3,54 @@ extends ../layout1
 block header
   +showHeader(menuLinks, activeMenu,
     '',
-    'Find The Best Domain Name For You or Your Business'
+    'Find The Best Furnitures'
   )
 
 block content
   section(class="ba b--black-20 shadow-4 w-60 ma3 center")
-    header(class="tc pa4 lh-copy")
-      h2(class="tc f3-l fw1 ma0") #{user.fname}
+    //- header(class="tc pa4 lh-copy")
+    //-   h2(class="tc f3-l fw1 ma0") #{user.fname}
+
+    div(class="lh-copy mr1 tr")
+      a(href="/user/edit" class="f6 link dim orange db") Update profile
+
+    div(class="cf ph2-ns mt3")
+      div(class="fl w-100 w-50-ns pv2-ns")
+        div(class="fl-l w-25-l pa0")
+          label(class="db fw4 lh-copy" for="first_name") First name
+        div(class="fl w-75 w-60-l pa0") #{user.fname}
+
+      div(class="fl w-100 w-50-ns pv2-ns pt2")
+        div(class="fl-l w-30-l pa0")
+          label(class="db fw4 lh-copy" for="last_name") Last name
+        div(class="fl w-75 w-60-l pa0") #{user.lname}
+
+    div(class="cf ph2-ns mt1")
+      div(class="fl w-100 w-50-ns pv2-ns")
+        div(class="fl-l w-25-l pa0")
+          label(class="db fw4 lh-copy" for="email") Email
+        div(class="fl w-75 w-60-l pa0") #{user.email}
+
+      div(class="fl w-100 w-50-ns pv2-ns pt3")
+        div(class="fl-l w-30-l pa0")
+          label(class="db fw4 lh-copy" for="contact_number") Contact Number
+        div(class="fl w-75 w-60-l pa0") #{user.email}
+
+    div(class="cf ph2-ns mt1")
+      div(class="fl w-100 w-50-ns pv2-ns")
+        div(class="fl-l w-25-l pa0")
+          label(class="db fw4 lh-copy" for="address") Address
+        div(class="fl w-75 w-60-l pa0") #{user.address}
+
+      div(class="fl w-100 w-50-ns pv2-ns pt3")
+        div(class="fl-l w-30-l pa0")
+          label(class="db fw4 lh-copy" for="zipcode") Zipcode
+        div(class="fl w-75 w-60-l pa0") #{user.zipcode}
+
+    div(class="cf ph2-ns mt1")
+      div(class="fl w-100 w-50-ns pv2-ns")
+        div(class="fl-l w-25-l pa0")
+          label(class="db fw4 lh-copy" for="country") Country
+        div(class="fl w-75 w-60-l pa0") #{user.country}
 
 block footer-container
