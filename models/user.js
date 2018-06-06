@@ -304,7 +304,7 @@ module.exports = (sequelize, DataTypes) => {
   User.findById = function(id, callback) {
     this.findOne({
       attributes: ['id', 'email', 'first_name', 'last_name'
-        , 'user_status', 'account_locked'],
+        , 'user_status', 'account_locked', 'address', 'country', 'zipcode'],
       where: {
         id: id,
       }

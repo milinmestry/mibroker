@@ -5,21 +5,29 @@ const async = require('async');
 
 // Render the user profile page and flash any message if exists
 exports.profile = function (req, res, next) {
-  // res.render('user/profile', { message: req.flash('profileMessage'),
-  //   user: req.user, // Get the user from the session
-  // });
-  menulinkData.getTopMenus()
-    .then(function (listMenus) {
-      // console.log('=>>>>>>>>>>>>'+JSON.stringify(req.user));
+  async.parallel({
+    user: function(callback) {
+      UserModel.findById(req.user.id, callback)
+    },
+    listMenus: function(callback) {
+      menulinkData.getTopMenus()
+        .then(menus => {
+          callback(null, menus);
+        });
+    },
+  }, (err, results) => {
+    if (err) {
+      return next(err);
+    }
 
-      res.render('user/profile', {
-        title: 'My profile',
-        menuLinks: listMenus,
-        activeMenu: '',
-        message: req.flash('profileMessage'),
-        user: req.user, // Get the user from the session
-      });
+    res.render('user/profile', {
+      title: 'My profile',
+      menuLinks: results.listMenus,
+      activeMenu: '',
+      message: req.flash('profileMessage'),
+      user: results.user, // Get the user from the session
     });
+  });
 };
 
 // Render the user profile page and flash any message if exists
