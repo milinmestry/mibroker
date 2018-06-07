@@ -87,3 +87,31 @@ exports.dashboard = function (req, res, next) {
   });
   // res.render('buy-domains', { title: 'Please login', activeMenu: 'login', });
 };
+
+// Render the dashboard page and flash any message if exists
+exports.edit = function (req, res, next) {
+  // TODO: Validation to check input is numeric
+  // TODO: Incase no record exists in database; redirect to profile page with message.
+  async.parallel({
+    user: function(callback) {
+      UserModel.findById(req.params.userId, callback)
+    },
+    listMenus: function(callback) {
+      menulinkData.getTopMenus()
+        .then(menus => {
+          callback(null, menus);
+        });
+    }
+  }, (err, results) => {
+    if (err) {
+      return next(err);
+    }
+    res.render('user/edit', {
+      title: 'My Profile Edit',
+      menuLinks: results.listMenus,
+      activeMenu: '',
+      user: results.user,
+    });
+  });
+
+};
